@@ -5,7 +5,7 @@ import Logo from '../assets/logo.png'
 function NavBar() {
   return (
     <nav className='flex justify-between items-center bg-gray-400 ' >
-        <span className='flex justify-start items-center text-center w-16 p-2 ' >
+        <span className='flex justify-start items-center text-center w-16 pl-2 ' >
             <img src={Logo} alt="Logo" className="" />
         </span>
         <div className="">
