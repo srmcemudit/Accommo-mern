@@ -5,9 +5,9 @@ import { Outlet } from 'react-router-dom';
 
 function Dashboard() {
   return (
-    <div className="flex h-[calc(100vh-1.5rem)] bg-gray-900">
+    <div className="flex h-[calc(100vh-38px)] bg-gray-900">
       <Left_Section />
-      <div className='w-full '>
+      <div className='w-full'>
         <Outlet />
       </div>      
     </div>
