@@ -1,8 +1,8 @@
 
 
-function Landing_Page() {
+function SignUp() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-700 to-gray-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600 flex flex-col items-center justify-center p-4">
       {/* Main Content */}
       <div className="text-center mb-8">
         <h1 className="text-5xl font-extrabold text-white mb-4">
@@ -43,18 +43,12 @@ function Landing_Page() {
             type="submit"
             className="w-full bg-indigo-500 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition duration-200"
           >
-            Login
+            SignUp
           </button>
         </form>
-        <p className="text-sm text-center text-gray-500">
-         Don`t have an account?
-          <a href="signup" className="text-indigo-600 font-semibold hover:underline">
-            Sign up
-          </a>
-        </p>
       </div>
     </div>
   )
 }
 
-export default Landing_Page
+export default SignUp

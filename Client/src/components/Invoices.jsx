@@ -1,8 +1,9 @@
-import React from 'react'
 
 function Invoices() {
   return (
-    <div>Invoices</div>
+    <div className="text-white p-2 flex justify-center text-center items-center " >
+      <div className=" " > there are no invoices available </div>
+    </div>
   )
 }
 

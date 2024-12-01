@@ -11,6 +11,7 @@ import Suggestions from "./components/Suggestions"
 import Complaints from "./components/Complaints"
 import Settings from "./components/Settings"
 import Invoices from "./components/Invoices"
+import SignUp from "./pages/SignUp"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing_Page />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />}>

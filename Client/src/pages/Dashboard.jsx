@@ -7,7 +7,7 @@ function Dashboard() {
   return (
     <div className="flex h-[calc(100vh-38px)] bg-gray-900">
       <Left_Section />
-      <div className='w-full'>
+      <div className='w-full flex justify-center items-center '>
         <Outlet />
       </div>      
     </div>
