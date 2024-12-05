@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 function Dashboard() {
   return (
-    <div className="flex h-[calc(100vh-38px)] bg-gray-900">
+    <div className="flex h-screen bg-gray-900">
       <Left_Section />
       <div className='w-full flex justify-center items-center '>
         <Outlet />

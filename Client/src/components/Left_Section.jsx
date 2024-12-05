@@ -18,7 +18,7 @@ function Left_Section() {
         <div className="flex flex-col flex-1 justify-center items-start p-4 space-y-4 list-none ">
           <li>
             <Link to='/Dashboard'>
-              <span className="ml-2 flex items-center gap-2 font-semibold text-xl peer-active:bg "><MdTableChart/> Portal</span >
+              <span className="ml-2 flex items-center gap-2 font-semibold text-xl"><MdTableChart/> Portal</span >
             </Link>
           </li>
           <li>
