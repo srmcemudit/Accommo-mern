@@ -2,7 +2,11 @@
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <div class  {
+      constructor(parameters) {
+        
+      }
+    }>Contact</div>
   )
 }
 
