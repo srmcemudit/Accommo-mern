@@ -57,3 +57,5 @@ function Mess() {
   </div>
   );
 }
+
+export default Mess
