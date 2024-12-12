@@ -1,17 +1,50 @@
-
 function Suggestions() {
   return (
-    <div className="p-4 bg-slate-950 rounded-lg shadow-lg w-full sm:w-96">
-        <p className="text-white font-semibold text-lg p-2">Drop your Suggestions here ....</p>
-        <div className="px-2 py-4">
-          <input type="text" placeholder="Suggestion Title" className="block w-full p-2 text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700">
+      <div className="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-2xl transform transition-all hover:scale-105 hover:shadow-xl">
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-white mb-8 text-center">
+          Drop Your Suggestions Here
+        </h1>
+
+        {/* Form Inputs */}
+        <div className="space-y-6">
+          {/* Suggestion Title */}
+          <div>
+            <label className="block text-gray-300 font-medium mb-2">
+              Suggestion Title
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your suggestion title"
+              className="w-full p-4 bg-gray-700 text-gray-100 rounded-md border-2 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-gray-300 font-medium mb-2">
+              Description
+            </label>
+            <textarea
+              placeholder="Enter your description here"
+              rows="5"
+              className="w-full p-4 bg-gray-700 text-gray-100 rounded-md border-2 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            />
+          </div>
         </div>
-        <div className="px-2 py-4">
-          <textarea placeholder="Description" className="p-2 block w-full text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+        {/* Submit Button */}
+        <div className="text-center mt-8">
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md shadow-lg transition-all transform hover:scale-105"
+          >
+            Submit
+          </button>
         </div>
-        <button className="bg-blue-400 p-2 border-none rounded-md w-full">Submit</button>
       </div>
-  )
+    </div>
+  );
 }
 
-export default Suggestions
+export default Suggestions;

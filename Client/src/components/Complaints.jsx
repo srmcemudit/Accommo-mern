@@ -1,34 +1,51 @@
-
 function Complaints() {
   return (
-    <div className="text-white flex justify-center items-center gap-4 p-4">
-      <div className="p-4 bg-slate-950 rounded-lg shadow-lg w-full sm:w-96">
-        <p className="text-white font-semibold text-lg p-2">Register your complaint here ....</p>
-        <div className="px-2 py-4">
-          <input type="text" placeholder="Complaint Title" className="block w-full p-2 text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen">
+      {/* Complaint Registration Form */}
+      <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 p-8 rounded-lg shadow-xl w-full sm:w-96">
+        <p className="text-white font-semibold text-lg mb-6">Register your complaint here...</p>
+
+        {/* Complaint Title Input */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Complaint Title"
+            className="block w-full p-3 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
         </div>
-        <div className="px-2 py-4">
-          <textarea placeholder="Description" className="p-2 block w-full text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+        {/* Complaint Description */}
+        <div className="mb-4">
+          <textarea
+            placeholder="Description"
+            className="p-3 block w-full text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+          />
         </div>
-        <button className="bg-blue-400 p-2 border-none rounded-md w-full">Submit</button>
+
+        {/* Submit Button */}
+        <button className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all">
+          Submit
+        </button>
       </div>
-      <div className="bg-slate-950 p-4 shadow-lg rounded-lg w-full sm:w-96 h-72 overflow-y-auto">
-        <p className="text-white font-semibold text-lg p-2">Registered Complaints</p>
-        <ul className="list-none space-y-2">
-          <li>Complaint 1</li>
-          <li>Complaint 2</li>
-          <li>Complaint 3</li>
-          <li>Complaint 4</li>
-          <li>Complaint 5</li>
-          <li>Complaint 6</li>
-          <li>Complaint 7</li>
-          <li>Complaint 8</li>
-          <li>Complaint 9</li>
-          <li>Complaint 10</li>
+
+      {/* Registered Complaints List */}
+      <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-8 shadow-xl rounded-lg w-full sm:w-96 h-80 overflow-y-auto">
+        <p className="text-white font-semibold text-lg mb-6">Registered Complaints</p>
+        <ul className="space-y-3 text-gray-100">
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 1</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 2</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 3</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 4</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 5</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 6</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 7</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 8</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 9</li>
+          <li className="p-3 hover:bg-teal-700 rounded-md transition-all">Complaint 10</li>
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default Complaints
+export default Complaints;
