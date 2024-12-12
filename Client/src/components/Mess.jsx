@@ -58,4 +58,4 @@ function Mess() {
   );
 }
 
-export default Mess
+export default Mess;
