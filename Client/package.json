@@ -12,6 +12,7 @@
   "dependencies": {
     "@mui/styled-engine-sc": "^6.1.3",
     "@mui/x-charts": "^7.20.0",
+    "@react-pdf/renderer": "^4.1.5",
     "axios": "^1.7.9",
     "chart.js": "^4.4.4",
     "react": "^18.3.1",

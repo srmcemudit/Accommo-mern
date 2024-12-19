@@ -1,5 +1,12 @@
 import './Scroll.css';
+import { useNavigate } from 'react-router-dom';
 function Invoices() {
+  const navigate=useNavigate();
+  const HandleClick = () => {
+    console.log('Invoice clicked!');    
+    navigate('/pdf');                  //add pdf page 
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
       {/* Page Header */}
@@ -26,7 +33,7 @@ function Invoices() {
             <div className="p-4">
               <h2 className="text-lg font-semibold mb-2">Invoice #{i + 1}</h2>
               <p className="text-gray-400 text-sm mb-3">Issued: 2024-06-12</p>
-              <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1.5 rounded-md text-sm transition-colors">
+              <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1.5 rounded-md text-sm transition-colors" onClick={HandleClick} >
                 View Details
               </button>
             </div>

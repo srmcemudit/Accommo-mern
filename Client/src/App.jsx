@@ -15,6 +15,7 @@ import SignUp from "./pages/SignUp"
 import Profile from "./components/Profile"
 import ChangePass from "./components/ChangePass"
 import Notification from "./components/Notification"
+import PdfInvoice from "./components/PDF/PdfInvoice"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing_Page />} />
+        <Route path="/pdf" element={<PdfInvoice />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
