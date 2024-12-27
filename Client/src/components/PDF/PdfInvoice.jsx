@@ -43,7 +43,7 @@ export default function PdfInvoice() {
   );
 
   return (
-    <div className="w-full h-[697px]">
+    <div className="w-full h-[735px]">
       <PDFViewer width="100%" height="100%">
         <PDF />
       </PDFViewer>

@@ -1,10 +1,11 @@
 import './Scroll.css';
-import { useNavigate } from 'react-router-dom';
 function Invoices() {
-  const navigate=useNavigate();
   const HandleClick = () => {
     console.log('Invoice clicked!');    
-    navigate('/pdf');                  //add pdf page 
+    const newTab = window.open("/pdf", "_blank");               //add pdf page
+    if(newTab){
+      newTab.focus();
+    }                 
   };
 
   return (

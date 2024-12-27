@@ -16,11 +16,13 @@ import Profile from "./components/Profile"
 import ChangePass from "./components/ChangePass"
 import Notification from "./components/Notification"
 import PdfInvoice from "./components/PDF/PdfInvoice"
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location  = useLocation();
   return (
     <div>
-      <NavBar />
+      {location.pathname !== "/pdf" && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing_Page />} />
         <Route path="/pdf" element={<PdfInvoice />} />
