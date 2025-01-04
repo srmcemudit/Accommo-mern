@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const route = require('./routes/user');
 const cors = require('cors');
+const Complaint = require('./models/Complaints');
 require('dotenv').config();
 const app = express();
 
@@ -19,6 +20,15 @@ app.use("/user", route);
 
 app.get('/', (req, res) => {
     res.send("Hello, world!");
+});
+
+app.post('/api/register', async(req, res) => {
+  try {
+    const complaint = await Complaint.create(req.body);
+    res.status(200).json(complaint);
+  } catch (error) {
+    res.status(500).json({message:error})
+  }
 });
 
 app.listen(port, ()=>{

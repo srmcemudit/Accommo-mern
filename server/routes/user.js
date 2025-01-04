@@ -10,6 +10,7 @@ userRouter.get("/getAllUser", getUser);
 // Get user by ID
 userRouter.get("/getUserById/:id", getUser);
 
+
 // Login route
 userRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;

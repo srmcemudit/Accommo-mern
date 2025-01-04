@@ -1,24 +1,37 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
+import Complaints from '../components/Complaints';
 
 function LandingPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('')
   const navigate = useNavigate();
-  async function login() {
-    const user = { email, password };
+
+
+  let ShowPass = () => {
+    let pass = document.getElementById('password')
+    if(pass.type === 'password') {
+      pass.type = 'text';
+    }else{
+      pass.type = 'password';
+    }
+  }
+
+  async function login(user) {
+    user = { email, password };
     try {
       const result = await axios.post('http://localhost:3001/user/login', user);
       console.log(result.data); // login successful
       navigate('/dashboard'); 
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
+      setError('Enter valid email and password');
     }
     console.log(user);
-    
   }
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-700 to-gray-900 flex flex-col items-center justify-center p-4">
       <div className="text-center mb-8">
@@ -44,6 +57,15 @@ function LandingPage() {
             </label>
             <input type="password" id="password" className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </div>
+          <div className='flex items-center space-x-3'>
+            <label htmlFor="checkbox" className='text-sm font-medium text-gray-700 cursor-pointer'>
+              Show Password
+            </label>
+            <input type="checkbox" id='checkbox' className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" onClick={ShowPass} />
+          </div>
+          <div className='catch '>
+          {<p>{error}</p>}
+          </div>
           <button type="submit" className="w-full bg-indigo-500 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition duration-200">Login</button>
         </form>
         <p className="text-sm text-center text-gray-500">
@@ -56,5 +78,4 @@ function LandingPage() {
     </div>
   );
 }
-
 export default LandingPage;
