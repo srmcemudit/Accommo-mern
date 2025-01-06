@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const route = require("./routes/user");
+const userRoute = require("./routes/user");
+const suggestionRoute = require("./routes/suggestion")
 const cors = require("cors");
-const Complaint = require("./models/Complaints");
+const complaintRoute = require("./routes/complaint");
 require("dotenv").config();
 const app = express();
 
@@ -17,24 +18,12 @@ mongoose
   )
   .then(() => console.log("DataBase Connected succesfully!"));
 
-app.use("/user", route);
-app.use("/suggestion", require("./routes/suggestion"));
+app.use("/user", userRoute);
+app.use("/suggestion", suggestionRoute);
+app.use("/complaint",complaintRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
-});
-
-app.post("/complaint/register", async (req, res) => {
-  try {
-    const { title, content } = req.body;
-    const complaint = await Complaint.create({
-      title: title,
-      content: content,
-    });
-    res.status(200).json(complaint);
-  } catch (error) {
-    res.status(500).json({ message: error });
-  }
 });
 
 app.listen(port, () => {
