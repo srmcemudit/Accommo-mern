@@ -9,16 +9,16 @@ const ComplaintsSchema= new mongoose.Schema (
         content:{
             type: String,
             required: true
-        },
-        user: {
-            id:{type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
-            },
-            name:{type: String,
-                required: true
-            }
-        }
+        }//,
+        // user: {
+        //     id:{type: mongoose.Schema.Types.ObjectId,
+        //         ref: 'User',
+        //         required: true
+        //     },
+        //     name:{type: String,
+        //         required: true
+        //     }
+        //}
     },
     {
         timestamps: true

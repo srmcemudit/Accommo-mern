@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
-import Complaints from '../components/Complaints';
 
 function LandingPage() {
   const [email, setEmail] = useState('');
@@ -19,8 +18,8 @@ function LandingPage() {
     }
   }
 
-  async function login(user) {
-    user = { email, password };
+  async function login() {
+    const user = { email, password };
     try {
       const result = await axios.post('http://localhost:3001/user/login', user);
       console.log(result.data); // login successful

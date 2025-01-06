@@ -1,11 +1,28 @@
 import { useState } from 'react';
 import  Modal from 'react-awesome-modal';
+import axios from 'axios';
 import Register_Complaints from './Register_Complaints';
 import './Scroll.css'
 
 function Complaints() {
   const [visible, setVisible] = useState(false);
-  const [modalData, setModalData] = useState();
+  const [modalData, setModalData] = useState('');
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+
+  const Onsubmit = async(e)=> {
+    e.preventDefault()
+    const complaint = {title,content};
+    try {
+      const result = await axios.post ('http://localhost:3001/complaint/register',complaint)
+      console.log(result.data);
+      setTitle('');
+      setContent('');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const openModal = (data) => {
     setModalData(data);
     setVisible(true);
@@ -45,6 +62,8 @@ const closeModal = () => {
           <input
             type="text"
             placeholder="Complaint Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="block w-full p-3 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
           />
         </div>
@@ -53,12 +72,14 @@ const closeModal = () => {
         <div className="mb-4">
           <textarea
             placeholder="Description"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             className="p-3 block w-full text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all overflow-hidden"
           />
         </div>
 
         {/* Submit Button */}
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all">
+        <button className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all" onClick={Onsubmit}>
           Submit
         </button>
       </div>
