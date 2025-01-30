@@ -36,7 +36,7 @@ function AboutHotel() {
             <h2 className="text-3xl font-semibold text-violet-300 mb-4">Features</h2>
             <ul className="list-disc pl-5 space-y-3 text-gray-200">
               <li>Focuses on the themes of sustainability, innovation, and client connection, ensuring the message resonates with a modern audience.</li>
-              <li>Highlights the company's passion and vision, inviting trust and engagement from potential clients.</li>
+              <li>Highlights the companys passion and vision, inviting trust and engagement from potential clients.</li>
             </ul>
           </div>
         </div>
@@ -44,7 +44,7 @@ function AboutHotel() {
         {/* Footer Section */}
         <div className="text-center mt-16">
           <p className="text-gray-400 text-lg">
-            "Elevating hotel management to the next level with cutting-edge technology and an emphasis on user-centric design."
+            `Elevating hotel management to the next level with cutting-edge technology and an emphasis on user-centric design.`
           </p>
         </div>
       </div>

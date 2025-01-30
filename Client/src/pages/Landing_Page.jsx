@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
-
+axios.defaults.withCredentials = true;
 function LandingPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +23,7 @@ function LandingPage() {
     try {
       const result = await axios.post('http://localhost:3001/user/login', user);
       console.log(result.data); // login successful
-      navigate('/dashboard'); 
+      navigate('/dashboard', { state: { userData: result.data }, replace:true }); 
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
       setError('Enter valid email and password');

@@ -3,19 +3,22 @@ import  Modal from 'react-awesome-modal';
 import axios from 'axios';
 import Register_Complaints from './Register_Complaints';
 import './Scroll.css'
+import { useOutletContext } from 'react-router-dom';
 
 function Complaints() {
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState('');
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const { userData } = useOutletContext();
+
 
   const Onsubmit = async(e)=> {
     e.preventDefault()
     const complaint = {title,content};
     try {
       const result = await axios.post ('http://localhost:3001/complaint/register',complaint)
-      console.log(result.data);
+      console.log(result.data,userData);
       setTitle('');
       setContent('');
     } catch (error) {

@@ -4,16 +4,20 @@ const userRoute = require("./routes/user");
 const suggestionRoute = require("./routes/suggestion")
 const cors = require("cors");
 const complaintRoute = require("./routes/complaint");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const app = express();
 
 app.use(express.json());
-
-app.use(cors());
+app.use(cookieParser());
+app.use(cors(
+  { 
+    origin: "http://localhost:5173",
+    credentials: true,
+  }));
 const port = process.env.PORT || 3001;
 
-mongoose
-  .connect(
+mongoose.connect(
     "mongodb+srv://tudrishu:w47BCOglMC0wKdEq@cluster0.vn8pr.mongodb.net/sample_mflix"
   )
   .then(() => console.log("DataBase Connected succesfully!"));

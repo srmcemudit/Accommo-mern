@@ -1,4 +1,3 @@
-
 import { Routes, Route } from "react-router-dom"
 import About from "./components/About"
 import Landing_Page from "./pages/Landing_Page"
@@ -17,9 +16,12 @@ import ChangePass from "./components/ChangePass"
 import Notification from "./components/Notification"
 import PdfInvoice from "./components/PDF/PdfInvoice"
 import { useLocation } from "react-router-dom";
+import Admin from "./components/Admin"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
   const location  = useLocation();
+  const isAuthenticated = true;
   return (
     <div>
       {location.pathname !== "/pdf" && <NavBar />}
@@ -29,16 +31,19 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element= {<Portal />} />
-          <Route path= "mess" element={<Mess />} />
-          <Route path= "invoices" element={<Invoices />} />
-          <Route path= "suggestions" element={<Suggestions />} />
-          <Route path= "complaints" element={<Complaints />} />
-          <Route path= "settings" element={<Settings />} />
-          <Route path= "profile" element={<Profile />} />
-          <Route path= "change_password" element={<ChangePass /> } />
-          <Route path= "notifications" element={<Notification /> } />
+        <Route path="/admin" element={<Admin />} />
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element= {<Portal />} />
+            <Route path= "mess" element={<Mess />} />
+            <Route path= "invoices" element={<Invoices />} />
+            <Route path= "suggestions" element={<Suggestions />} />
+            <Route path= "complaints" element={<Complaints />} />
+            <Route path= "settings" element={<Settings />} />
+            <Route path= "profile" element={<Profile />} />
+            <Route path= "change_password" element={<ChangePass /> } />
+            <Route path= "notifications" element={<Notification /> } />
+          </Route>
         </Route>
       </Routes>
     </div>
