@@ -1,5 +1,5 @@
 const express = require("express");
-const { getUser } = require("../controllers/user");
+const { getUser, getId } = require("../controllers/user");
 const User = require("../models/user"); // Import Mongoose model
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -9,7 +9,7 @@ const userRouter = express.Router();
 userRouter.get("/getAllUser", getUser);
 
 // Get user by ID
-userRouter.get("/getUserById/:id", getUser);
+userRouter.get("/getUserById/:id", getId);
 
 // Login route
 userRouter.post("/login", async (req, res) => {
@@ -22,6 +22,8 @@ userRouter.post("/login", async (req, res) => {
     const user = await User.findOne({ email: email });
     if(!user){
       return res.json({sucess:false, message:"invalid email"})
+    }else{
+      return res.json(user);
     }
     const DB_password = user.password;
     const compare = await bcrypt.compareSync(password, DB_password);
@@ -31,7 +33,6 @@ userRouter.post("/login", async (req, res) => {
       res.cookie('token',token,{
         httpOnly:true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        sameSite: "none",
         secure: false,
       });
       console.log(token);
@@ -45,6 +46,9 @@ userRouter.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+
 
 // Register routes
 userRouter.post("/register", async (req, res) => {
