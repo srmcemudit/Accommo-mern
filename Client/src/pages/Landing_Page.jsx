@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../Redux/Userslice";
 axios.defaults.withCredentials = true;
 function LandingPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let ShowPass = () => {
     let pass = document.getElementById("password");
@@ -21,9 +24,10 @@ function LandingPage() {
     const user = { email, password };
     try {
       const result = await axios.post("http://localhost:3001/user/login", user);
-      console.log(result.data); // login successful
-      if (result.data.name) {
-        navigate("/dashboard",{ state: { Result: result.data } });
+      console.log(result.data.user); // login successful
+      if (result.data.user) {
+        dispatch(setUser(result.data.user));
+        navigate("/dashboard");
       } else {
         console.log("success false");
       }

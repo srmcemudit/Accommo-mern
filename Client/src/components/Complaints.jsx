@@ -1,40 +1,44 @@
-import { useState } from 'react';
-import  Modal from 'react-awesome-modal';
-import axios from 'axios';
-import Register_Complaints from './Register_Complaints';
-import './Scroll.css'
-import { useOutletContext } from 'react-router-dom';
+import { useState } from "react";
+import Modal from "react-awesome-modal";
+import axios from "axios";
+import Register_Complaints from "./Register_Complaints";
+import { useSelector } from "react-redux";
+import "./Scroll.css";
 
 function Complaints() {
   const [visible, setVisible] = useState(false);
-  const [modalData, setModalData] = useState('');
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const { userData } = useOutletContext();
+  const [modalData, setModalData] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-
-  const Onsubmit = async(e)=> {
-    e.preventDefault()
-    const complaint = {title,content};
+  const Onsubmit = async (e) => {
+    e.preventDefault();
+    const complaint = { title, content, userId: user._id };
     try {
-      const result = await axios.post ('http://localhost:3001/complaint/register',complaint)
-      console.log(result.data,userData);
-      setTitle('');
-      setContent('');
+      const result = await axios.post(
+        "http://localhost:3001/complaint/register",
+        complaint
+      );
+      console.log(result);
+      
+      setTitle("");
+      setContent("");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const openModal = (data) => {
     setModalData(data);
     setVisible(true);
-};
+  };
 
-const closeModal = () => {
+  const closeModal = () => {
     setVisible(false);
-};
-
+  };
+  const user = useSelector((state) => state.user.user);
+  console.log(user._id);
+  
 
   return (
     <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen ">
@@ -58,7 +62,9 @@ const closeModal = () => {
       </Modal>
       {/* Complaint Registration Form */}
       <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 p-8 rounded-lg shadow-xl w-full sm:w-96">
-        <p className="text-white font-semibold text-lg mb-6">Register your complaint here...</p>
+        <p className="text-white font-semibold text-lg mb-6">
+          Register your complaint here...
+        </p>
 
         {/* Complaint Title Input */}
         <div className="mb-4">
@@ -82,19 +88,27 @@ const closeModal = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all" onClick={Onsubmit}>
+        <button
+          className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all"
+          onClick={Onsubmit}
+        >
           Submit
         </button>
       </div>
 
       {/* Registered Complaints List */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-8 shadow-xl rounded-lg w-full sm:w-96 h-80 overflow-y-auto custom-scrollbar">
-        <p className="text-white font-semibold text-lg mb-6">Registered Complaints</p>
-          <Register_Complaints complaint="no fans" openModal={openModal} />
-          <Register_Complaints complaint="no lights" openModal={openModal} />
-          <Register_Complaints complaint="no electricity" openModal={openModal} />
-          <Register_Complaints complaint="no room maintainance" openModal={openModal} />
-          <Register_Complaints complaint="no nothing" openModal={openModal} />
+        <p className="text-white font-semibold text-lg mb-6">
+          Registered Complaints
+        </p>
+        <Register_Complaints complaint="no fans" openModal={openModal} />
+        <Register_Complaints complaint="no lights" openModal={openModal} />
+        <Register_Complaints complaint="no electricity" openModal={openModal} />
+        <Register_Complaints
+          complaint="no room maintainance"
+          openModal={openModal}
+        />
+        <Register_Complaints complaint="no nothing" openModal={openModal} />
       </div>
     </div>
   );

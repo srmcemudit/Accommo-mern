@@ -17,7 +17,7 @@ app.use(
     credentials: true,
   })
 );
-const port = process.env.PORT || 3001;
+const port = parseInt(process.env.PORT || 3001);
 
 mongoose
   .connect(MONGO_URI)

@@ -9,16 +9,12 @@ const ComplaintsSchema= new mongoose.Schema (
         content:{
             type: String,
             required: true
-        }//,
-        // user: {
-        //     id:{type: mongoose.Schema.Types.ObjectId,
-        //         ref: 'User',
-        //         required: true
-        //     },
-        //     name:{type: String,
-        //         required: true
-        //     }
-        //}
+         },
+         userId: {
+            type: mongoose.Schema.Types.ObjectId, // Reference to User model
+            ref: "User", // Ensure this matches your User model name
+            required: true
+          }
     },
     {
         timestamps: true
