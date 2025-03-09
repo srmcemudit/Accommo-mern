@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  user: JSON.parse(sessionStorage.getItem("userdata")) || null,
 };
 
 const userSlice = createSlice({
@@ -10,6 +10,8 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+      sessionStorage.setItem("userdata", JSON.stringify(action.payload));
+      
     },
     logoutUser: (state) => {
       state.user = null;

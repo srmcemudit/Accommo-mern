@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 
 function Portal() {
   const user = useSelector((state) => state.user.user);
+  const storedUser = JSON.parse(sessionStorage.getItem("userdata"));
+  console.log(storedUser);
   
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-gray-700 to-indigo-900 flex flex-col p-6">

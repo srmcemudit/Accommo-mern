@@ -6,10 +6,11 @@ const surouter = express.Router();
 
 surouter.post("/suggestionRegister", async (req, res) => {
   try {
-    const { Title, Description } = req.body;
+    const { Title, Description, UserId } = req.body;
     const suggestion = await Suggestion.create({
       Title: Title,
       Description: Description,
+      UserId: UserId,
     });
     res.status(200).json(suggestion);
   } catch (error) {

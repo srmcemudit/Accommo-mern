@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Suggestions() {
   const [Title, setTitle] = useState('')
   const [Description, setDescription] = useState('')
+  const User = useSelector((state)=> (state.user.user));
+  const UserId = User._id;
 
   const Submit = async (e) =>{
     e.preventDefault();
-    let suggestion = {Title,Description}
+    let suggestion = {Title,Description, UserId}
     try {
       const result = await axios.post('http://localhost:3001/suggestion/suggestionRegister',suggestion);
       console.log("hello",result.data);
@@ -16,6 +19,8 @@ function Suggestions() {
       console.log("error in catch")
     }
   }
+  
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
       <div className="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-2xl transform transition-all hover:shadow-xl">

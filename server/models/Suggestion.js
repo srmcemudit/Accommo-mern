@@ -9,6 +9,10 @@ const SuggestionSchema = new mongoose.Schema (
         Description: {
             type: String,
             required: true
+        },
+        UserId: {
+            type: String,
+            required:true
         }
     },
     {

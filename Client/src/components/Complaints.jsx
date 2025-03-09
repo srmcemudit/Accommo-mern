@@ -19,7 +19,7 @@ function Complaints() {
         "http://localhost:3001/complaint/register",
         complaint
       );
-      console.log(result);
+      console.log(result.data);
       
       setTitle("");
       setContent("");
@@ -37,7 +37,7 @@ function Complaints() {
     setVisible(false);
   };
   const user = useSelector((state) => state.user.user);
-  console.log(user._id);
+  console.log(user);
   
 
   return (
