@@ -1,5 +1,6 @@
-
+import axios from "axios"
 function ChangePass() {
+  axios.post('http://localhost:3001/user/changepass')
   return (
     <div className="flex flex-col justify-center text-white">
         <p className="text-xl font-semibold p-4 ">Change Password</p>
