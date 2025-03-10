@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.Validate = (req,res,next) =>{
     try {
-        const token = req.cookie.token;
+        const token = req.cookies.token;
         console.log(token);
         if (!token) {
             return res.status(403).json({ status: false, message: 'You are not logged in.' });
@@ -12,6 +12,8 @@ module.exports.Validate = (req,res,next) =>{
             else {
                 req.userid = user.id;
                 req.userName = user.userName;
+                console.log(user);
+                res.json({token:true});
                 next();
             }
         });

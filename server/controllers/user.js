@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+require("dotenv").config();
 module.exports.getUser = async (req, res) => {
   try {
     const users = await User.find();
@@ -8,16 +9,15 @@ module.exports.getUser = async (req, res) => {
     module.exports = users;
   } catch (error) {
     console.error(error);
-    res.status(500).json({Message : "Server Error"});
+    res.status(500).json({ Message: "Server Error" });
   }
 };
 
-module.exports.getId = async (req,res) =>{
+module.exports.getId = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
     console.log(user);
-    
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -25,8 +25,15 @@ module.exports.getId = async (req,res) =>{
 
     res.status(200).json(user);
   } catch (error) {
-    console.error("catch error",error);
-    res.status(500).json({message:"server error"})
+    console.error("catch error", error);
+    res.status(500).json({ message: "server error" });
+  }
+};
+module.exports.cookies = async(req,res) =>{
+  if(!req.cookies){
+    return res.status(400).json({message: "no cookie found"});
+  }else{
+    return res.status(200).json({cookie: req.cookies})
   }
 }
 
@@ -54,7 +61,6 @@ module.exports.Login = async (req, res) => {
           secure: false,
         });
         console.log(token);
-
         return res.status(200).json({ message: "Login successful", user });
       } else {
         return res.status(401).json({ message: "Invalid credentials" });
@@ -64,8 +70,7 @@ module.exports.Login = async (req, res) => {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
-
+};
 
 module.exports.Register = async (req, res) => {
   try {
@@ -98,15 +103,12 @@ module.exports.Register = async (req, res) => {
     console.log("error in catch");
     res.status(500).json({ message: "Server error" });
   }
-}
+};
 
-module.exports.ChangePass = async(req,res) =>{
+module.exports.ChangePass = async (req, res) => {
   try {
-    const{CurrentPass, NewPass} = req.body;
+    const { CurrentPass, NewPass } = req.body;
     const user = req.user;
     console.log(user);
-    
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};

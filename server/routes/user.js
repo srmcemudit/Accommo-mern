@@ -3,6 +3,14 @@ const { getUser, getId, Login, Register, ChangePass } = require("../controllers/
 const { Validate } = require("../Middlewares/Validator");
 const userRouter = express.Router();
 
+//Middleware
+userRouter.use((req, res, next) => {
+    if (req.path === "/login" || req.path === "/register") {
+      return next(); // Skip validation for login and register
+    }
+    Validate(req, res, next); // Apply validation middleware for other routes
+  });
+
 // Get all users
 userRouter.get("/getAllUser", getUser);
 
@@ -11,6 +19,7 @@ userRouter.get("/getUserById/:id", getId);
 
 // Login route
 userRouter.post("/login", Login);
+userRouter.get("/login", Validate);
 
 // Register routes
 userRouter.post("/register", Register);

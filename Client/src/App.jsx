@@ -17,12 +17,28 @@ import PdfInvoice from "./components/PDF/PdfInvoice";
 import { useLocation } from "react-router-dom";
 import Admin from "./components/Admin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 function App() {
   const location = useLocation();
+  const [login, setlogin] = useState(null)
   
-  const isAuthenticated = true;
+  useEffect(() => {
+    const isAuthenticated = async()=>{
+      try {
+        const cookies = await axios.get("http://localhost:3001/user/login", { withCredentials: true })
+        console.log(cookies);
+        setlogin(cookies.data.token)
+      }catch (error) {
+      console.log(error)
+    }
+  };
+    isAuthenticated();
+  }, [])
+  
+  
   
   return (
     <div>
@@ -36,7 +52,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route
           path="/Dashboard"
-          element={<ProtectedRoute isAuthenticated={isAuthenticated} />}
+          element={<ProtectedRoute isAuthenticated={login} />}
         >
           <Route index element={<Portal />} />
           <Route path="mess" element={<Mess />} />
