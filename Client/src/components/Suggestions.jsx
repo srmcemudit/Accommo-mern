@@ -12,7 +12,9 @@ function Suggestions() {
     e.preventDefault();
     let suggestion = {Title,Description, UserId}
     try {
-      const result = await axios.post('http://localhost:3001/suggestion/suggestionRegister',suggestion);
+      const result = await axios.post('http://localhost:3001/suggestion/suggestionRegister',suggestion,{
+        withCredentials:true,
+      });
       console.log("hello",result.data);
     } catch (error) {
       console.log(error);

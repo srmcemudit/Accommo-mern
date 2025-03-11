@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import About from "./components/About";
 import Landing_Page from "./pages/Landing_Page";
-import NavBar from "./components/NavBar";
 import Contact from "./components/Contact";
 import Portal from "./components/Portal";
 import Mess from "./components/mess";
@@ -14,21 +13,35 @@ import Profile from "./components/Profile";
 import ChangePass from "./components/ChangePass";
 import Notification from "./components/Notification";
 import PdfInvoice from "./components/PDF/PdfInvoice";
-import { useLocation } from "react-router-dom";
 import Admin from "./components/Admin";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Logout from "./components/Logout";
 
 function App() {
-  const location = useLocation();
-  
-  const isAuthenticated = true;
-  
+  const [login, setlogin] = useState(null);
+
+  useEffect(() => {
+    const isAuthenticated = async () => {
+      try {
+        const cookies = await axios.get("http://localhost:3001/user/login", {
+          withCredentials: true,
+        });
+        setlogin(cookies.data.token);
+        console.log(cookies.data.token);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    isAuthenticated();
+  }, []);
+
   return (
     <div>
-      {location.pathname !== "/pdf" && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing_Page />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/pdf" element={<PdfInvoice />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} />
@@ -36,7 +49,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route
           path="/Dashboard"
-          element={<ProtectedRoute isAuthenticated={isAuthenticated} />}
+          element={<ProtectedRoute isAuthenticated={login} />}
         >
           <Route index element={<Portal />} />
           <Route path="mess" element={<Mess />} />

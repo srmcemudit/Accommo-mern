@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: JSON.parse(sessionStorage.getItem("userdata")) || null,
+  isAuthennticated: true
 };
 
 const userSlice = createSlice({

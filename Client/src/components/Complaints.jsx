@@ -17,7 +17,9 @@ function Complaints() {
     try {
       const result = await axios.post(
         "http://localhost:3001/complaint/register",
-        complaint
+        complaint, {
+          withCredentials: true,
+        }
       );
       console.log(result.data);
       

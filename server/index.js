@@ -5,6 +5,8 @@ const suggestionRoute = require("./routes/suggestion");
 const cors = require("cors");
 const complaintRoute = require("./routes/complaint");
 const cookieParser = require("cookie-parser");
+const { Validate } = require("./Middlewares/Validator");
+const { logout } = require("./controllers/Logout");
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
@@ -24,8 +26,9 @@ mongoose
   .then(() => console.log("DataBase Connected succesfully!"));
 
 app.use("/user", userRoute);
-app.use("/suggestion", suggestionRoute);
-app.use("/complaint", complaintRoute);
+app.use("/suggestion", Validate, suggestionRoute);
+app.use("/complaint", Validate, complaintRoute);
+app.use("/logout", logout);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
