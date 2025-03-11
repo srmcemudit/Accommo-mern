@@ -3,6 +3,7 @@ import Left_Section from '../components/Left_Section';
 import { Outlet } from 'react-router-dom';
 import Footer from '../components/Footer';
 
+
 function Dashboard() {
   return (
     <>

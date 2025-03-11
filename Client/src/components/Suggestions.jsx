@@ -1,4 +1,26 @@
+import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
 function Suggestions() {
+  const [Title, setTitle] = useState('')
+  const [Description, setDescription] = useState('')
+  const User = useSelector((state)=> (state.user.user));
+  const UserId = User._id;
+
+  const Submit = async (e) =>{
+    e.preventDefault();
+    let suggestion = {Title,Description, UserId}
+    try {
+      const result = await axios.post('http://localhost:3001/suggestion/suggestionRegister',suggestion);
+      console.log("hello",result.data);
+    } catch (error) {
+      console.log(error);
+      console.log("error in catch")
+    }
+  }
+  
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
       <div className="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-2xl transform transition-all hover:shadow-xl">
@@ -14,7 +36,7 @@ function Suggestions() {
             <label className="block text-gray-300 font-medium mb-2">
               Suggestion Title
             </label>
-            <input type="text" placeholder="Enter your suggestion title" className="w-full p-4 bg-gray-700 text-gray-100 rounded-md border-2 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"/>
+            <input type="text" placeholder="Enter your suggestion title" value={Title} onChange={(e)=>setTitle(e.target.value)} className="w-full p-4 bg-gray-700 text-gray-100 rounded-md border-2 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"/>
           </div>
 
           {/* Description */}
@@ -23,8 +45,13 @@ function Suggestions() {
               Description
             </label>
             <textarea
+              id="des"
               placeholder="Enter your description here"
               rows="5"
+              value={Description}
+              onChange={
+                (e)=>{setDescription(e.target.value)}
+              }
               className="w-full p-4 bg-gray-700 text-gray-100 rounded-md border-2 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all overflow-hidden "/>
           </div>
         </div>
@@ -33,6 +60,7 @@ function Suggestions() {
         <div className="text-center mt-8">
           <button
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md shadow-lg transition-all transform"
+            onClick={Submit}
           >
             Submit
           </button>
