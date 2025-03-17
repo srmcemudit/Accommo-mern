@@ -8,10 +8,13 @@ import { GrNotes } from "react-icons/gr";
 import { GoGear } from "react-icons/go";
 import { ImExit } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { logoutUser } from "../Redux/Userslice";
 
 function Left_Section() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logout = async () => {
     try {
       await axios.post(
@@ -19,8 +22,10 @@ function Left_Section() {
         {},
         { withCredentials: true }
       );
-      sessionStorage.clear();
-      console.log("logout success");
+      setTimeout(() => {
+        dispatch(logoutUser())
+        console.log("logout success");
+      }, 100);
       navigate("/logout");
     } catch (error) {
       console.log("Logout failed", error);
@@ -78,10 +83,9 @@ function Left_Section() {
           </Link>
         </li>
       </div>
-      <div className="flex-[0,0,auto] p-2 mb-1 text-center items-center bg-red-800 ">
+      <div className="flex-[0,0,auto] p-2 mb-1 text-center items-center bg-red-800 cursor-pointer" onClick={logout}>
         <button
           className="flex justify-center items-center gap-2 font-semibold text-xl "
-          onClick={logout}
         >
           <ImExit /> Logout
         </button>

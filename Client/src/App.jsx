@@ -15,27 +15,9 @@ import Notification from "./components/Notification";
 import PdfInvoice from "./components/PDF/PdfInvoice";
 import Admin from "./components/Admin";
 import ProtectedRoute from "./components/ProtectedRoute";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Logout from "./components/Logout";
 
 function App() {
-  const [login, setlogin] = useState(null);
-
-  useEffect(() => {
-    const isAuthenticated = async () => {
-      try {
-        const cookies = await axios.get("http://localhost:3001/user/login", {
-          withCredentials: true,
-        });
-        setlogin(cookies.data.token);
-        console.log(cookies.data.token);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    isAuthenticated();
-  }, []);
 
   return (
     <div>
@@ -49,7 +31,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route
           path="/Dashboard"
-          element={<ProtectedRoute isAuthenticated={login} />}
+          element={<ProtectedRoute />}
         >
           <Route index element={<Portal />} />
           <Route path="mess" element={<Mess />} />
