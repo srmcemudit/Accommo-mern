@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-awesome-modal";
 import axios from "axios";
 import Register_Complaints from "./Register_Complaints";
@@ -10,6 +10,7 @@ function Complaints() {
   const [modalData, setModalData] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [complaint, setcomplaint] = useState("");
 
   const Onsubmit = async (e) => {
     e.preventDefault();
@@ -17,12 +18,13 @@ function Complaints() {
     try {
       const result = await axios.post(
         "http://localhost:3001/complaint/register",
-        complaint, {
+        complaint,
+        {
           withCredentials: true,
         }
       );
       console.log(result.data);
-      
+
       setTitle("");
       setContent("");
     } catch (error) {
@@ -30,6 +32,22 @@ function Complaints() {
     }
   };
 
+  const GetComplaint = async () => {
+    try {
+      const complaint = await axios.get(
+        `http://localhost:3001/complaint/get/${user._id}`
+      );
+      const ComplaintData = complaint.data;
+      setcomplaint(ComplaintData);
+      console.log(ComplaintData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    GetComplaint();
+  }, []);
+  
   const openModal = (data) => {
     setModalData(data);
     setVisible(true);
@@ -39,9 +57,6 @@ function Complaints() {
     setVisible(false);
   };
   const user = useSelector((state) => state.user.user);
-  console.log(user);
-  
-
   return (
     <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen ">
       <Modal
@@ -100,17 +115,29 @@ function Complaints() {
 
       {/* Registered Complaints List */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-8 shadow-xl rounded-lg w-full sm:w-96 h-80 overflow-y-auto custom-scrollbar">
-        <p className="text-white font-semibold text-lg mb-6">
-          Registered Complaints
-        </p>
-        <Register_Complaints complaint="no fans" openModal={openModal} />
-        <Register_Complaints complaint="no lights" openModal={openModal} />
-        <Register_Complaints complaint="no electricity" openModal={openModal} />
-        <Register_Complaints
-          complaint="no room maintainance"
-          openModal={openModal}
-        />
-        <Register_Complaints complaint="no nothing" openModal={openModal} />
+        <div className="flex justify-between items-center">
+          <span className="text-white font-semibold text-lg mb-6">
+            Registered Complaints
+          </span>
+          <button
+            className="font-semibold text-3xl text-black mb-6"
+            onClick={GetComplaint}
+          >
+            🔄️
+          </button>
+        </div>
+
+        {complaint.length > 0 ? (
+          complaint.map((comp) => (
+            <Register_Complaints
+              key={comp._id}
+              complaint={comp.title}
+              openModal={() => openModal(comp.content)} // Pass complaint content to modal
+            />
+          ))
+        ) : (
+          <p className="text-white">No complaints found.</p>
+        )}
       </div>
     </div>
   );

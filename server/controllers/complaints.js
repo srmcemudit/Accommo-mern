@@ -1,14 +1,17 @@
 const Complaint = require("../models/Complaints");
 
 module.exports.getcomplaints = async(req,res) => {
-    try {
-       const complaints = await Complaint.find()
-       res.status(200).json(complaints)
-       console.log("success")        
-    } catch (error) {
-        res.status(500).json({Message: "error in server"})
-        console.log(error);
+  try {
+    console.log("req recived at complaints");
+    const { userId } = req.params;
+    const complaints = await Complaint.find({ userId });  // Find posts by userId
+    if (!complaints.length) {
+        return res.status(404).json({ message: "No complaints found for this user" });
     }
+    res.status(200).json(complaints);
+} catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+}
 }
 
 module.exports.registercomplaints = async (req, res) => {
