@@ -16,6 +16,9 @@ import PdfInvoice from "./components/PDF/PdfInvoice";
 import Admin from "./components/Admin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Logout from "./components/Logout";
+import AdminPortal from "./components/AdminPortal";
+import Rooms from "./components/Rooms";
+import Payments from "./components/Payments";
 
 function App() {
 
@@ -28,11 +31,14 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route
-          path="/Dashboard"
-          element={<ProtectedRoute />}
-        >
+        <Route path="/admin" element={<Admin />} >
+          <Route index element={<AdminPortal />} />
+            <Route path="rooms" element={<Rooms />} />
+            <Route path="payments" element={<Payments />} />
+            <Route path="acomplaints" element={<Complaints />} />
+            <Route path="asettings" element={<Settings />} />
+        </Route>
+        <Route path="/Dashboard" element={<ProtectedRoute />}>
           <Route index element={<Portal />} />
           <Route path="mess" element={<Mess />} />
           <Route path="admin" element={<Admin />} />

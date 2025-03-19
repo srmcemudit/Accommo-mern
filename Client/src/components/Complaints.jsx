@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Modal from "react-awesome-modal";
 import axios from "axios";
 import Register_Complaints from "./Register_Complaints";
@@ -6,48 +6,46 @@ import { useSelector } from "react-redux";
 import "./Scroll.css";
 
 function Complaints() {
+  const user = useSelector((state) => state.user.user);
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [complaint, setcomplaint] = useState("");
+  const [complaint, setComplaint] = useState([]); // ✅ Changed from "" to []
 
+  // 🟢 Memoized Fetch Function
+  const GetComplaint = useCallback(async () => {
+    if (!user?._id) return;
+    try {
+      const response = await axios.get(`http://localhost:3001/complaint/get/${user._id}`);
+      setComplaint(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [user?._id]);
+
+  useEffect(() => {
+    GetComplaint();
+  }, [GetComplaint]); // ✅ No dependency warning
+
+  // 🟢 Submit Complaint
   const Onsubmit = async (e) => {
     e.preventDefault();
-    const complaint = { title, content, userId: user._id };
+    const newComplaint = { title, content, userId: user._id };
+
     try {
-      const result = await axios.post(
-        "http://localhost:3001/complaint/register",
-        complaint,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(result.data);
+      await axios.post("http://localhost:3001/complaint/register", newComplaint, {
+        withCredentials: true,
+      });
 
       setTitle("");
       setContent("");
+      GetComplaint(); // 🔄 Refresh complaints after submission
     } catch (error) {
       console.log(error);
     }
   };
 
-  const GetComplaint = async () => {
-    try {
-      const complaint = await axios.get(
-        `http://localhost:3001/complaint/get/${user._id}`
-      );
-      const ComplaintData = complaint.data;
-      setcomplaint(ComplaintData);
-      console.log(ComplaintData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    GetComplaint();
-  }, []);
-  
   const openModal = (data) => {
     setModalData(data);
     setVisible(true);
@@ -56,9 +54,10 @@ function Complaints() {
   const closeModal = () => {
     setVisible(false);
   };
-  const user = useSelector((state) => state.user.user);
+
   return (
-    <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen ">
+    <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen">
+      {/* Modal for Viewing Complaint Details */}
       <Modal
         visible={visible}
         width="400"
@@ -77,11 +76,10 @@ function Complaints() {
           </button>
         </div>
       </Modal>
+
       {/* Complaint Registration Form */}
       <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 p-8 rounded-lg shadow-xl w-full sm:w-96">
-        <p className="text-white font-semibold text-lg mb-6">
-          Register your complaint here...
-        </p>
+        <p className="text-white font-semibold text-lg mb-6">Register your complaint here...</p>
 
         {/* Complaint Title Input */}
         <div className="mb-4">
@@ -116,13 +114,8 @@ function Complaints() {
       {/* Registered Complaints List */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-8 shadow-xl rounded-lg w-full sm:w-96 h-80 overflow-y-auto custom-scrollbar">
         <div className="flex justify-between items-center">
-          <span className="text-white font-semibold text-lg mb-6">
-            Registered Complaints
-          </span>
-          <button
-            className="font-semibold text-3xl text-black mb-6"
-            onClick={GetComplaint}
-          >
+          <span className="text-white font-semibold text-lg mb-6">Registered Complaints</span>
+          <button className="font-semibold text-3xl text-black mb-6" onClick={GetComplaint}>
             🔄️
           </button>
         </div>
