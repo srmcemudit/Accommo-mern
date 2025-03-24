@@ -19,6 +19,7 @@ import Logout from "./components/Logout";
 import AdminPortal from "./components/AdminPortal";
 import Rooms from "./components/Rooms";
 import Payments from "./components/Payments";
+import Complaint_Resolve from "./components/Complaint_Resolve";
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
           <Route index element={<AdminPortal />} />
             <Route path="rooms" element={<Rooms />} />
             <Route path="payments" element={<Payments />} />
-            <Route path="acomplaints" element={<Complaints />} />
+            <Route path="acomplaints" element={<Complaint_Resolve />} />
             <Route path="asettings" element={<Settings />} />
         </Route>
         <Route path="/Dashboard" element={<ProtectedRoute />}>

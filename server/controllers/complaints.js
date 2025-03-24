@@ -27,3 +27,12 @@ module.exports.registercomplaints = async (req, res) => {
       res.status(500).json({ message: error });
     }
   }
+
+  module.exports.allcomplaints = async (req,res) => {
+    try {
+      const complaint = await Complaint.find().populate("userId", "name email");
+      res.status(200).json(complaint);
+    } catch (error) {
+      console.log(error);
+    }
+  }
