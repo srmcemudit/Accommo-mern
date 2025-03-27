@@ -3,10 +3,9 @@ import { useState } from "react";
 function AddGuest() {
   const [guestDetails, setGuestDetails] = useState({
     name: "",
-    age: "",
+    email: "",
     contact: "",
-    stayDuration: "",
-    rentAmount: "",
+    roomNo: "",
   });
   const [successMessage, setSuccessMessage] = useState("");
   const availableRooms = [101, 102, 103, 104, 105, 106]; // Example available rooms
@@ -36,15 +35,14 @@ function AddGuest() {
     // Reset form fields
     setGuestDetails({
       name: "",
-      age: "",
+      email: "",
       contact: "",
-      stayDuration: "",
-      rentAmount: "",
+      roomNo: "",
     });
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto mt-10 px-6 py-2 bg-gray-900 text-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Add New Guest</h2>
       {successMessage && (
         <div className="mb-4 p-3 bg-green-600 rounded-md">{successMessage}</div>
@@ -62,10 +60,10 @@ function AddGuest() {
         />
 
         <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          value={guestDetails.age}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={guestDetails.email}
           onChange={handleChange}
           className="w-full p-2 border rounded-md bg-gray-800 text-white"
           required
@@ -82,20 +80,10 @@ function AddGuest() {
         />
 
         <input
-          type="text"
-          name="stayDuration"
-          placeholder="Duration of Stay (e.g. 6 months)"
-          value={guestDetails.stayDuration}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-800 text-white"
-          required
-        />
-
-        <input
           type="number"
-          name="rentAmount"
-          placeholder="Rent Amount"
-          value={guestDetails.rentAmount}
+          name="roomNo"
+          placeholder="Room no"
+          value={guestDetails.roomNo}
           onChange={handleChange}
           className="w-full p-2 border rounded-md bg-gray-800 text-white"
           required

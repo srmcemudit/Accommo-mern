@@ -85,12 +85,11 @@ function AdminPortal() {
       <Modal
         visible={visible}
         width="400"
-        height="300"
+        height="500"
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="p-4">
-          <h2 className="text-xl font-bold">Modal Content</h2>
+        <div className="px-2">
           <p>{ModalData}</p>
           <button
             className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"

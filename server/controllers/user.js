@@ -73,7 +73,7 @@ module.exports.Login = async (req, res) => {
 
 module.exports.Register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, role } = req.body;
     console.log("request recieved at /user/register");
 
     // Check if user already exists
@@ -83,9 +83,9 @@ module.exports.Register = async (req, res) => {
 
     // Hash the password before saving to the database
     const salt = await bcrypt.genSalt(10);
-    const hash_password = await bcrypt.hash(password, salt);
+    const hash_password = await bcrypt.hash('123', salt);
 
-    const user = new User({ name, email, password: hash_password });
+    const user = new User({ name, email, password:hash_password, role });
     const result = await user.save();
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
