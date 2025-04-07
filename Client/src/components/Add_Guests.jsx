@@ -42,13 +42,12 @@ function AddGuest() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 px-6 py-2 bg-gray-900 text-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Add New Guest</h2>
+    <div className="space-y-4">
+      <h3 className="text-xl font-semibold">Add New Guest</h3>
       {successMessage && (
-        <div className="mb-4 p-3 bg-green-600 rounded-md">{successMessage}</div>
+        <div className="p-3 bg-green-600 rounded-md text-sm">{successMessage}</div>
       )}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <input
           type="text"
           name="name"
@@ -82,7 +81,7 @@ function AddGuest() {
         <input
           type="number"
           name="roomNo"
-          placeholder="Room no"
+          placeholder="Room No"
           value={guestDetails.roomNo}
           onChange={handleChange}
           className="w-full p-2 border rounded-md bg-gray-800 text-white"

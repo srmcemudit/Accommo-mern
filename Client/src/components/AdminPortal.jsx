@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import Modal from "react-awesome-modal";
 import AddGuest from "./Add_Guests";
+import Send_Alert from "./Send_Alert";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -41,7 +42,13 @@ function AdminPortal() {
             <h1 className="text-2xl font-bold">Stats</h1>
             <button
               className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md"
-              onClick={() => openModal(<AddGuest/>)}
+              onClick={() => openModal(<Send_Alert />)}
+            >
+              Send Alert
+            </button>
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 py-2 rounded-md"
+              onClick={() => openModal(<AddGuest />)}
             >
               Add New
             </button>
@@ -85,19 +92,19 @@ function AdminPortal() {
       <Modal
         visible={visible}
         width="400"
-        height="500"
+        height="400"
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="px-2">
-          <p>{ModalData}</p>
-          <button
-            className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
-            onClick={closeModal}
-          >
-            Close
-          </button>
-        </div>
+        <div className="text-center bg-gray-900 text-white p-6 rounded-md flex flex-col justify-between items-center">
+          {ModalData}
+      <button
+        className="bg-red-500 text-white px-6 py-2 rounded-md mt-4"
+        onClick={closeModal}
+      >
+        Close
+      </button>
+    </div>
       </Modal>
     </>
   );

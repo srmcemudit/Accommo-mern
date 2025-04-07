@@ -4,6 +4,7 @@ const userRoute = require("./routes/user");
 const suggestionRoute = require("./routes/suggestion");
 const cors = require("cors");
 const complaintRoute = require("./routes/complaint");
+const NotificationRoute = require("./routes/Notification");
 const cookieParser = require("cookie-parser");
 const { Validate } = require("./Middlewares/Validator");
 const { logout } = require("./controllers/Logout");
@@ -28,6 +29,7 @@ mongoose
 app.use("/user", userRoute);
 app.use("/suggestion", Validate, suggestionRoute);
 app.use("/complaint", Validate, complaintRoute);
+app.use("/notification",NotificationRoute);
 app.use("/logout", logout);
 
 app.get("/", (req, res) => {

@@ -67,7 +67,7 @@ function Admin_Section() {
           </Link>
         </li>
         <li>
-          <Link to="/Dashboard/settings">
+          <Link to="/admin/asettings">
             <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
               <GoGear /> Settings
             </span>

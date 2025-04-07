@@ -106,8 +106,21 @@ module.exports.Register = async (req, res) => {
 
 module.exports.ChangePass = async (req, res) => {
   try {
-    const { CurrentPass, NewPass } = req.body;
-    const user = req.user;
-    console.log(user);
-  } catch (error) {}
+    const {UserPass,Userid,Current,New } = req.body;
+    const compare = await bcrypt.compareSync(Current, UserPass);
+    if(compare){
+      const user = await User.findById(Userid);
+      const hashedPassword = await bcrypt.hash(New, 10);
+      user.password = hashedPassword;
+      await user.save();
+      res.status(200).json({ message: "Password updated successfully" });
+      console.log("Password updated successfully")
+    }else{
+      res.status(501).json({message: "passwords incorrect"})
+      console.log("passwords incorrect");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({error: "Server Error"});
+  }
 };
