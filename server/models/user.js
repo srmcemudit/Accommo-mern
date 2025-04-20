@@ -21,6 +21,10 @@ const user = new mongoose.Schema({
     enum: ["client","admin"],
     default: "client",
   },
+  RoomNo: {
+    type: String,
+    default: null,
+  }
 },{
   timestamps: true
 });

@@ -4,7 +4,10 @@ const initialState = {
   user: JSON.parse(sessionStorage.getItem("userdata")) || null,
   isAuthenticated: JSON.parse(sessionStorage.getItem("isAuthenticated")) || false,
 };
-
+const initialRoomState = {
+  roomData: null,
+  vacantRoom: null,
+};
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -24,5 +27,21 @@ const userSlice = createSlice({
   },
 });
 
+const roomSlice = createSlice({
+  name: "room",
+  initialState: initialRoomState,
+  reducers: {
+    setRoom: (state, action) => {
+      state.roomData = action.payload;
+    },
+    setVacant: (state,action) => {
+    state.vacantRoom = action.payload;
+    },
+  },
+});
+
 export const { setUser, logoutUser } = userSlice.actions;
-export default userSlice.reducer;
+export const {setRoom, setVacant } = roomSlice.actions;
+
+export const userReducer = userSlice.reducer;
+export const roomReducer = roomSlice.reducer;

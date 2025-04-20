@@ -9,10 +9,12 @@ const Notification_Schema = new mongoose.Schema (
         Description: {
             type: String,
             required: true
-        }
-    },
-    {
-        timestamps:true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            expires: 24*60*60,
+          }
     }
 )
 

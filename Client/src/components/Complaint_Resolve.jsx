@@ -19,8 +19,8 @@ function Complaint_Resolve() {
   }, []);
 
   return (
-    <div className="bg-cyan-500 py-11 px-16 h-full overflow-y-scroll">
-      <h2 className="text-white text-lg font-bold mb-4">Complaints</h2>
+    <div className="w-full max-w-xl overflow-auto max-h-[400px] custom-scrollbar border border-gray-600 rounded-lg shadow-lg">
+      <h2 className="text-white text-center py-3 text-xl font-bold">Complaints</h2>
       <div className="space-y-4">
         {complaints.length > 0 ? (
           complaints.map((complaint, index) => (

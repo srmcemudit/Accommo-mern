@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Rooms = require("../models/Rooms");
 require("dotenv").config();
 module.exports.getUser = async (req, res) => {
   try {
@@ -28,13 +29,13 @@ module.exports.getId = async (req, res) => {
     res.status(500).json({ message: "server error" });
   }
 };
-module.exports.cookies = async(req,res) =>{
-  if(!req.cookies){
-    return res.status(400).json({message: "no cookie found"});
-  }else{
-    return res.status(200).json({cookie: req.cookies})
+module.exports.cookies = async (req, res) => {
+  if (!req.cookies) {
+    return res.status(400).json({ message: "no cookie found" });
+  } else {
+    return res.status(200).json({ cookie: req.cookies });
   }
-}
+};
 
 module.exports.Login = async (req, res) => {
   const { email, password } = req.body;
@@ -48,7 +49,7 @@ module.exports.Login = async (req, res) => {
       return res.json({ sucess: false, message: "invalid email" });
     } else {
       const DB_password = user.password;
-      const compare = await bcrypt.compareSync(password, DB_password);
+      const compare = await bcrypt.compare(password, DB_password);
 
       if (compare) {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -74,53 +75,72 @@ module.exports.Login = async (req, res) => {
 module.exports.Register = async (req, res) => {
   try {
     const { name, email, role } = req.body;
-    console.log("request recieved at /user/register");
+    console.log("Request received at /user/register");
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
-    if (existingUser)
+    if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
+    }
 
-    // Hash the password before saving to the database
+    // Hash default password
     const salt = await bcrypt.genSalt(10);
-    const hash_password = await bcrypt.hash('123', salt);
+    const hashedPassword = await bcrypt.hash("123", salt);
 
-    const user = new User({ name, email, password:hash_password, role });
+    const user = new User({ name, email, password: hashedPassword, role });
+    console.log("New user (in memory):", user);
+
+    if (role === "admin") {
+      user.RoomNo = undefined;
+    } else {
+      const availableRoom = await Rooms.findOne({ Status: "vacant" });
+      if (availableRoom) {
+        availableRoom.guest = user._id;
+        availableRoom.Status = "occupied";
+        await availableRoom.save();
+        user.RoomNo = availableRoom.RoomNo;
+      } else {
+        console.log("⚠ No vacant room found for client.");
+      }
+    }
+
     const result = await user.save();
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    console.log(token);
 
     res.cookie("token", token, {
-      //httpOnly:true,
+      // httpOnly: true, // Enable for security in production
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    res.status(201).json({ message: "User created successfully", result });
-    console.log(result);
+
+    return res
+      .status(201)
+      .json({ message: "User created successfully", result });
   } catch (err) {
-    console.log("error in catch");
-    res.status(500).json({ message: "Server error" });
+    console.error("❌ Error in /user/register:", err);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
 module.exports.ChangePass = async (req, res) => {
   try {
-    const {UserPass,Userid,Current,New } = req.body;
+    const { UserPass, Userid, Current, New } = req.body;
     const compare = await bcrypt.compareSync(Current, UserPass);
-    if(compare){
+    if (compare) {
       const user = await User.findById(Userid);
       const hashedPassword = await bcrypt.hash(New, 10);
       user.password = hashedPassword;
       await user.save();
       res.status(200).json({ message: "Password updated successfully" });
-      console.log("Password updated successfully")
-    }else{
-      res.status(501).json({message: "passwords incorrect"})
+      console.log("Password updated successfully");
+    } else {
+      res.status(501).json({ message: "passwords incorrect" });
       console.log("passwords incorrect");
     }
   } catch (error) {
     console.log(error);
-    res.status(401).json({error: "Server Error"});
+    res.status(401).json({ error: "Server Error" });
   }
 };
