@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const { Validate } = require("./Middlewares/Validator");
 const { logout } = require("./controllers/Logout");
 const RoomsRoute = require("./routes/Rooms");
+const OrderRoute = require("./routes/Order");
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
@@ -33,6 +34,7 @@ app.use("/complaint", Validate, complaintRoute);
 app.use("/notification",NotificationRoute);
 app.use("/rooms",RoomsRoute);
 app.use("/logout", logout);
+app.use('/razorpay',OrderRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");

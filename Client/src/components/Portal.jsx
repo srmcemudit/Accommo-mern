@@ -1,9 +1,36 @@
 import { useSelector } from "react-redux";
+import axios from 'axios';
 
 function Portal() {
   const user = useSelector((state) => state.user.user);
-  const storedUser = JSON.parse(sessionStorage.getItem("userdata"));
-  console.log(storedUser);
+
+  const PaymentHandler = async () => {
+    const key = await axios.get('http://localhost:3001/razorpay/getkey')
+    const order = await axios.post('http://localhost:3001/razorpay/order')
+    const options = {
+      key:key.data.key,
+      amount: order.data.amount,
+      currency: order.data.currency,
+      name: "Accommo",
+      description: "pg rent",
+      orderid: order.data.id,
+      callback_url: "http://localhost:3001/razorpay/paymentverify" ,
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: "000000000000",
+      },
+      
+        notes: {
+          address: "lko",
+        },
+        theme: {
+          "color": "#3399cc"
+        }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-slate-800 to-gray-950 text-gray-100 flex flex-col p-6 gap-y-4">
@@ -27,7 +54,7 @@ function Portal() {
         </div>
 
         <div className="text-center">
-          <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-full transition duration-300">
+          <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-2 rounded-full transition duration-300" onClick={PaymentHandler}>
             Pay Now
           </button>
         </div>
