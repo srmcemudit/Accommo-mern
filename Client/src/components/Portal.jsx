@@ -7,14 +7,25 @@ function Portal() {
   const PaymentHandler = async () => {
     const key = await axios.get('http://localhost:3001/razorpay/getkey')
     const order = await axios.post('http://localhost:3001/razorpay/order')
+    console.log(key.data,order.data.id)
     const options = {
       key:key.data.key,
       amount: order.data.amount,
       currency: order.data.currency,
       name: "Accommo",
       description: "pg rent",
-      orderid: order.data.id,
-      callback_url: "http://localhost:3001/razorpay/paymentverify" ,
+      image: 'https://ibb.co/201JNfqb',
+      order_id: order.data.id,
+      handler: async function (response) {
+        try {
+          await axios.post('http://localhost:3001/razorpay/paymentverify', response)
+          alert("Payment successful!");
+            window.location.href = "/dashboard";
+        } catch (error) {
+          alert("Payment verification failed! Please contact support.");
+          console.error(error);
+        }
+      },      
       prefill: {
         name: user.name,
         email: user.email,
@@ -25,9 +36,11 @@ function Portal() {
           address: "lko",
         },
         theme: {
-          "color": "#3399cc"
+          "color": "#7754"
         }
     }
+    console.log("option",options);
+    
     const rzp = new window.Razorpay(options)
     rzp.open()
   }

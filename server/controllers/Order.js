@@ -1,4 +1,5 @@
 const { instance } = require("../routes/Razorpay");
+const crypto = require("crypto");
 
 module.exports.Order = async (req, res) => {
   try {
@@ -14,12 +15,26 @@ module.exports.Order = async (req, res) => {
     console.log(order);
     res.status(200).json(order);
   } catch (error) {
-    console.log("error in order",error);
-    res.status(400).json(error)
+    console.log("error in order", error);
+    res.status(400).json(error);
   }
 };
 
-module.exports.payment = (req,res) => {
-    console.log("body",req.body);
-    res.status(200).json({"success":"true"})
-}
+module.exports.payment = (req, res) => {
+  console.log("body", req.body);
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+  const generated_signature = crypto
+    .createHmac("sha256", process.env.key_secret)
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+    .digest("hex");
+
+  if (generated_signature === razorpay_signature) {
+    console.log("Payment verified successfully!");
+
+    return res.status(200).json({"success":"true"});
+  } else {
+    console.log("Payment verification failed!");
+    return res.status(400).json({ success: false, message: "Invalid signature" });
+  }
+};
