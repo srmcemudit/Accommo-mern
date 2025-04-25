@@ -7,11 +7,12 @@ const seedRooms = async () => {
       await mongoose.connect()
       console.log("MongoDB connected");
       const rooms = [];
-      for (let i = 1; i <= 50; i++) {
+      for (let i = 51; i <= 100; i++) {
         rooms.push({
         RoomNo: `${i.toString().padStart(3, '0')}`, // e.g., R001, R002, ..., R050
         status: "vacant",
-        guests: []
+        guests: [],
+       // type: "Double",
         });
       }
       await Rooms.insertMany(rooms);

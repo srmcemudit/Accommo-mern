@@ -16,6 +16,11 @@ const RoomsSchema  = new mongoose.Schema (
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             default: null
+        },
+        type: {
+            type: String,
+            enum: ["Single", "Double"],
+            default: "Single"
         }
     },
     {

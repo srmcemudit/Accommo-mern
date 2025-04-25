@@ -1,8 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import { useEffect } from "react";
+import { setUser } from "../Redux/Userslice";
 
 function Portal() {
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch()
+  console.log(user)
 
   const PaymentHandler = async () => {
     const key = await axios.get('http://localhost:3001/razorpay/getkey')
@@ -44,6 +48,17 @@ function Portal() {
     const rzp = new window.Razorpay(options)
     rzp.open()
   }
+  const Roomsdata = async () =>{
+    const response = await axios.get(`http://localhost:3001/rooms/userroom/${user._id}`)
+    console.log(response.data);
+    dispatch(setUser({user, room: response.data}))
+  }
+  const room = useSelector((state) => state.user.room);
+  console.log("room",room)
+  useEffect(() => {
+    Roomsdata()
+  },[])
+  
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-slate-800 to-gray-950 text-gray-100 flex flex-col p-6 gap-y-4">
@@ -77,8 +92,8 @@ function Portal() {
       <h3 className="text-lg font-semibold text-violet-300 mb-2">🏠 Current Room Details</h3>
 
       <div className="text-sm text-gray-300 space-y-1">
-        <p><span className="font-medium text-violet-200">Room No:</span> {user.RoomNo}</p>
-        <p><span className="font-medium text-violet-200">Type:</span> {user?.name}</p>
+        <p><span className="font-medium text-violet-200">Room No:</span> {room?.RoomNo}</p>
+        <p><span className="font-medium text-violet-200">Type:</span> {room?.type}</p>
         <p><span className="font-medium text-violet-200">Amenities:</span> {user?.name}</p>
       </div>
     </div>

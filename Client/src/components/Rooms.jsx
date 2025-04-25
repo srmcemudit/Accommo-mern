@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Modal from 'react-awesome-modal'
+import Modal from "react-awesome-modal";
 import { useSelector } from "react-redux";
 import ManageRooms from "./ManageRooms";
 
 function Rooms() {
   const [User, setUser] = useState([]);
   const [Room, setRoom] = useState("");
-  const [visible, setVisible] = useState(false)
-  const [ModalData, setModalData] = useState("")
+  const [visible, setVisible] = useState(false);
+  const [ModalData, setModalData] = useState("");
 
   const getuser = async () => {
     const response = await axios.get("http://localhost:3001/user/getAllUser");
@@ -27,13 +27,13 @@ function Rooms() {
   }, [data]);
 
   const handleClick = (data) => {
-    setModalData(data)
-    setVisible(true)
+    setModalData(data);
+    setVisible(true);
   };
 
   const closeModal = () => {
-    setVisible(false)
-  }
+    setVisible(false);
+  };
 
   return (
     <>
@@ -76,7 +76,7 @@ function Rooms() {
                       <div className="flex justify-center">
                         <button
                           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-1 rounded transition duration-150"
-                          onClick={() => handleClick(<ManageRooms />)}
+                          onClick={() => handleClick(room)}
                         >
                           Manage
                         </button>
@@ -106,7 +106,7 @@ function Rooms() {
         onClickAway={closeModal}
       >
         <div className="text-center bg-gray-900 text-white p-6 rounded-md flex flex-col justify-between items-center">
-          {ModalData}
+        {ModalData && <ManageRooms data={ModalData} />}
           <button
             className="bg-red-500 text-white px-6 py-2 rounded-md mt-4"
             onClick={closeModal}

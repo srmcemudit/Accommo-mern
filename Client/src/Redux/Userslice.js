@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: JSON.parse(sessionStorage.getItem("userdata")) || null,
   isAuthenticated: JSON.parse(sessionStorage.getItem("isAuthenticated")) || false,
+  room: JSON.parse(sessionStorage.getItem("userroom")) || null, 
 };
 const initialRoomState = {
   roomData: null,
@@ -13,9 +14,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      const {user,room} = action.payload;
+      state.user = user;
+      state.room = room;
       state.isAuthenticated = true;
-      sessionStorage.setItem("userdata", JSON.stringify(action.payload));
+      if(user) sessionStorage.setItem("userdata", JSON.stringify(user));
+      if(room) sessionStorage.setItem("userroom", JSON.stringify(room));
       sessionStorage.setItem("isAuthenticated", JSON.stringify(true));
       
     },

@@ -17,3 +17,13 @@ module.exports.allrooms = async(req,res) =>{
       console.log(error);
   }
 }
+
+module.exports.userroom = async(req,res) =>{
+    try {
+        const userid = req.params.userid;
+        const UserRoom = await Rooms.findOne({guest: userid})
+        res.status(200).json(UserRoom)
+    } catch (error) {
+        res.status(501).json(error)
+    }
+}

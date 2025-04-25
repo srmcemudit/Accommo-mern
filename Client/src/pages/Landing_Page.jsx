@@ -26,7 +26,7 @@ function LandingPage() {
       const result = await axios.post("http://localhost:3001/user/login", user);
       console.log(result.data.user); // login successful
       if (result.data.user) {
-        dispatch(setUser(result.data.user));
+        dispatch(setUser({ user: result.data.user}));
         navigate("/dashboard");
       } else {
         console.log("success false");
