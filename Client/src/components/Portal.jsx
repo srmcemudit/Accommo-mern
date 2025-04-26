@@ -6,8 +6,6 @@ import { setUser } from "../Redux/Userslice";
 function Portal() {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch()
-  console.log(user)
-
   const PaymentHandler = async () => {
     const key = await axios.get('http://localhost:3001/razorpay/getkey')
     const order = await axios.post('http://localhost:3001/razorpay/order')
@@ -54,12 +52,10 @@ function Portal() {
     dispatch(setUser({user, room: response.data}))
   }
   const room = useSelector((state) => state.user.room);
-  console.log("room",room)
   useEffect(() => {
     Roomsdata()
   },[])
   
-
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-slate-800 to-gray-950 text-gray-100 flex flex-col p-6 gap-y-4">
       <div className="mb-6 text-center">

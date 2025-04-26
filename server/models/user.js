@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 const user = new mongoose.Schema({
   name: {
@@ -24,7 +23,24 @@ const user = new mongoose.Schema({
   RoomNo: {
     type: String,
     default: null,
-  }
+  },
+  Roomrent: {
+    type: Number,
+    default: 0,
+  },
+  Messrent: {
+    type: Number,
+    default: 0,
+  },
+  LastRoomrentDate: {
+    type: Date,
+    default: Date.now(),
+  },
+  LastMessrentDate: {
+    type: Date,
+    default: Date.now(),
+  },
+
 },{
   timestamps: true
 });
