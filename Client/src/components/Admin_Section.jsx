@@ -1,18 +1,27 @@
-import { Link } from "react-router-dom";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { MdTableChart } from "react-icons/md";
-import { MdOutlineBedroomParent } from "react-icons/md";
-import { MdPayments } from "react-icons/md";
-import { TfiWrite } from "react-icons/tfi";
-import { GoGear } from "react-icons/go";
-import { ImExit } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { logoutUser } from "../Redux/Userslice";
+import { 
+  MdOutlineSpaceDashboard,
+  MdTableChart,
+  MdOutlineBedroomParent,
+  MdPayments
+} from "react-icons/md";
+import { 
+  TfiWrite 
+} from "react-icons/tfi";
+import { 
+  GoGear 
+} from "react-icons/go";
+import { 
+  ImExit 
+} from "react-icons/im";
+
 function Admin_Section() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const logout = async () => {
     try {
       await axios.post(
@@ -22,67 +31,77 @@ function Admin_Section() {
       );
       setTimeout(() => {
         dispatch(logoutUser());
-        console.log("logout success");
+        navigate("/logout");
       }, 100);
-      navigate("/logout");
     } catch (error) {
       console.log("Logout failed", error);
     }
   };
+
   return (
-    <section className="flex flex-col h-full w-3/12 bg-gray-800 pt-5 text-gray-300">
-      <div className="bg-gray- w-full flex justify-center text-center items-center p-2 flex-[0,0,auto]">
-        <span className=" w-full flex text-3xl justify-center text-center items-center head select-none ">
-          {" "}
-          <MdOutlineSpaceDashboard /> Dashboard
-        </span>
+    <div className="flex flex-col h-full w-64 bg-white border-r border-gray-200">
+      {/* Dashboard Header */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center gap-3 text-teal-600">
+          <MdOutlineSpaceDashboard className="text-2xl" />
+          <span className="text-xl font-semibold">Admin Dashboard</span>
+        </div>
       </div>
-      <div className="flex flex-col flex-1 justify-center items-start p-4 space-y-4 list-none ">
-        <li>
-          <Link to="/admin">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <MdTableChart /> Portal
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/rooms">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <MdOutlineBedroomParent /> Rooms
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/payments">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <MdPayments /> Payments
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/acomplaints">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <TfiWrite /> Complaints
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/asettings">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <GoGear /> Settings
-            </span>
-          </Link>
-        </li>
-      </div>
-      <div
-        className="flex-[0,0,auto] p-2 mb-1 text-center items-center bg-red-800 cursor-pointer"
-        onClick={logout}
-      >
-        <button className="flex justify-center items-center gap-2 font-semibold text-xl ">
-          <ImExit /> Logout
+
+      {/* Navigation Links */}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <Link 
+          to="/admin" 
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <MdTableChart className="text-xl" />
+          <span className="font-medium">Portal</span>
+        </Link>
+
+        <Link 
+          to="/admin/rooms" 
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <MdOutlineBedroomParent className="text-xl" />
+          <span className="font-medium">Rooms</span>
+        </Link>
+
+        <Link 
+          to="/admin/payments" 
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <MdPayments className="text-xl" />
+          <span className="font-medium">Payments</span>
+        </Link>
+
+        <Link 
+          to="/admin/acomplaints" 
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <TfiWrite className="text-xl" />
+          <span className="font-medium">Complaints</span>
+        </Link>
+
+        <Link 
+          to="/admin/asettings" 
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <GoGear className="text-xl" />
+          <span className="font-medium">Settings</span>
+        </Link>
+      </nav>
+
+      {/* Logout Button */}
+      <div className="p-4 border-t border-gray-200">
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-red-50 text-red-600 hover:text-red-700 transition-colors"
+        >
+          <ImExit className="text-xl" />
+          <span className="font-medium">Logout</span>
         </button>
       </div>
-    </section>
+    </div>
   );
 }
 

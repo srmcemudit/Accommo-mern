@@ -3,7 +3,8 @@ import Modal from "react-awesome-modal";
 import axios from "axios";
 import Register_Complaints from "./Register_Complaints";
 import { useSelector } from "react-redux";
-import "./Scroll.css";
+import { toast, ToastContainer } from "react-toastify";
+import { FiAlertCircle, FiRefreshCw, FiEdit3 } from "react-icons/fi";
 
 function Complaints() {
   const user = useSelector((state) => state.user.user);
@@ -11,127 +12,173 @@ function Complaints() {
   const [modalData, setModalData] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [complaint, setComplaint] = useState([]); // ✅ Changed from "" to []
+  const [complaints, setComplaints] = useState([]);
 
-  // 🟢 Memoized Fetch Function
-  const GetComplaint = useCallback(async () => {
+  const GetComplaints = useCallback(async () => {
     if (!user?._id) return;
     try {
       const response = await axios.get(`http://localhost:3001/complaint/get/${user._id}`);
-      setComplaint(response.data);
+      setComplaints(response.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching complaints:", error);
+      toast.error("Failed to load complaints");
     }
   }, [user?._id]);
 
   useEffect(() => {
-    GetComplaint();
-  }, [GetComplaint]); // ✅ No dependency warning
+    GetComplaints();
+  }, [GetComplaints]);
 
-  // 🟢 Submit Complaint
-  const Onsubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newComplaint = { title, content, userId: user._id };
-
     try {
-      await axios.post("http://localhost:3001/complaint/register", newComplaint, {
-        withCredentials: true,
-      });
-
+      await axios.post(
+        "http://localhost:3001/complaint/register",
+        { title, content, userId: user._id },
+        { withCredentials: true }
+      );
       setTitle("");
       setContent("");
-      GetComplaint(); // 🔄 Refresh complaints after submission
+      toast.success("Complaint registered successfully!");
+      GetComplaints();
     } catch (error) {
-      console.log(error);
+      console.error("Error submitting complaint:", error);
+      toast.error("Failed to register complaint");
     }
   };
 
-  const openModal = (data) => {
-    setModalData(data);
+  const openModal = (content) => {
+    setModalData(content);
     setVisible(true);
   };
 
-  const closeModal = () => {
-    setVisible(false);
-  };
+  const closeModal = () => setVisible(false);
 
   return (
-    <div className="flex justify-center items-center gap-8 p-8 bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen">
-      {/* Modal for Viewing Complaint Details */}
+    <div className="bg-gray-50 min-h-screen p-6">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+          <FiAlertCircle className="mr-2 text-teal-600" />
+          Complaint Management
+        </h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Complaint Registration Card */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center mb-4">
+              <FiEdit3 className="text-xl text-teal-600 mr-3" />
+              <h2 className="text-xl font-semibold text-gray-800">Register New Complaint</h2>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                  placeholder="Brief complaint title"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <textarea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  rows={4}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                  placeholder="Detailed description of your complaint"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+              >
+                Submit Complaint
+              </button>
+            </form>
+          </div>
+
+          {/* Complaints List Card */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center">
+                <FiAlertCircle className="text-xl text-teal-600 mr-3" />
+                <h2 className="text-xl font-semibold text-gray-800">Your Complaints</h2>
+              </div>
+              <button
+                onClick={GetComplaints}
+                className="text-teal-600 hover:text-teal-800 flex items-center text-sm"
+              >
+                <FiRefreshCw className="mr-1" /> Refresh
+              </button>
+            </div>
+
+            <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              {complaints.length > 0 ? (
+                complaints.map((complaint) => (
+                  <Register_Complaints
+                    key={complaint._id}
+                    complaint={complaint.title}
+                    status={complaint.status}
+                    date={new Date(complaint.createdAt).toLocaleDateString()}
+                    openModal={() => openModal(complaint.content)}
+                  />
+                ))
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  No complaints found
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Complaint Detail Modal */}
       <Modal
         visible={visible}
-        width="400"
-        height="300"
+        width="500"
+        height="auto"
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Complaint Details</h2>
-          <p>{modalData}</p>
-          <button
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mt-4"
-            onClick={closeModal}
-          >
-            Close
-          </button>
+        <div className="bg-white p-6 rounded-lg">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Complaint Details</h2>
+          <div className="bg-gray-50 p-4 rounded-md">
+            <p className="text-gray-700 whitespace-pre-wrap">{modalData}</p>
+          </div>
+          <div className="flex justify-end mt-6">
+            <button
+              onClick={closeModal}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </Modal>
 
-      {/* Complaint Registration Form */}
-      <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 p-8 rounded-lg shadow-xl w-full sm:w-96">
-        <p className="text-white font-semibold text-lg mb-6">Register your complaint here...</p>
-
-        {/* Complaint Title Input */}
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Complaint Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="block w-full p-3 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-          />
-        </div>
-
-        {/* Complaint Description */}
-        <div className="mb-4">
-          <textarea
-            placeholder="Description"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="p-3 block w-full text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all overflow-hidden"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <button
-          className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md w-full mt-4 transition-all"
-          onClick={Onsubmit}
-        >
-          Submit
-        </button>
-      </div>
-
-      {/* Registered Complaints List */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-8 shadow-xl rounded-lg w-full sm:w-96 h-80 overflow-y-auto custom-scrollbar">
-        <div className="flex justify-between items-center">
-          <span className="text-white font-semibold text-lg mb-6">Registered Complaints</span>
-          <button className="font-semibold text-3xl text-black mb-6" onClick={GetComplaint}>
-            🔄️
-          </button>
-        </div>
-
-        {complaint.length > 0 ? (
-          complaint.map((comp) => (
-            <Register_Complaints
-              key={comp._id}
-              complaint={comp.title}
-              openModal={() => openModal(comp.content)} // Pass complaint content to modal
-            />
-          ))
-        ) : (
-          <p className="text-white">No complaints found.</p>
-        )}
-      </div>
+      <ToastContainer 
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

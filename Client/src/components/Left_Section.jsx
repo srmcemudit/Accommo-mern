@@ -1,20 +1,19 @@
-import { Link } from "react-router-dom";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { MdTableChart } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { logoutUser } from "../Redux/Userslice";
+import { MdOutlineSpaceDashboard, MdTableChart } from "react-icons/md";
 import { PiCookingPotBold } from "react-icons/pi";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
 import { TfiWrite } from "react-icons/tfi";
 import { GrNotes } from "react-icons/gr";
 import { GoGear } from "react-icons/go";
 import { ImExit } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { logoutUser } from "../Redux/Userslice";
 
 function Left_Section() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const logout = async () => {
     try {
       await axios.post(
@@ -23,71 +22,83 @@ function Left_Section() {
         { withCredentials: true }
       );
       setTimeout(() => {
-        dispatch(logoutUser())
-        console.log("logout success");
+        dispatch(logoutUser());
+        navigate("/logout");
       }, 100);
-      navigate("/logout");
     } catch (error) {
       console.log("Logout failed", error);
     }
   };
+
   return (
-    <section className="flex flex-col h-full w-3/12 bg-gray-800 pt-5 text-gray-300">
-      <div className="bg-gray- w-full flex justify-center text-center items-center p-2 flex-[0,0,auto]">
-        <span className=" w-full flex text-3xl justify-center text-center items-center head select-none ">
-          {" "}
-          <MdOutlineSpaceDashboard /> Dashboard
-        </span>
+    <section className="flex flex-col h-full w-64 bg-white border-r border-gray-200">
+      {/* Dashboard Header */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center gap-3 text-teal-600">
+          <MdOutlineSpaceDashboard className="text-2xl" />
+          <span className="text-xl font-semibold">Dashboard</span>
+        </div>
       </div>
-      <div className="flex flex-col flex-1 justify-center items-start p-4 space-y-4 list-none ">
-        <li>
-          <Link to="/Dashboard">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <MdTableChart /> Portal
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Dashboard/mess">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <PiCookingPotBold /> Mess
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Dashboard/invoices">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <LiaFileInvoiceSolid /> Invoices
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Dashboard/complaints">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <TfiWrite /> Complaints
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Dashboard/suggestions">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <GrNotes /> Suggestions
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Dashboard/settings">
-            <span className="ml-2 flex items-center gap-2 font-semibold text-xl">
-              <GoGear /> Settings
-            </span>
-          </Link>
-        </li>
-      </div>
-      <div className="flex-[0,0,auto] p-2 mb-1 text-center items-center bg-red-800 cursor-pointer" onClick={logout}>
-        <button
-          className="flex justify-center items-center gap-2 font-semibold text-xl "
+
+      {/* Navigation Links */}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <Link
+          to="/Dashboard"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
         >
-          <ImExit /> Logout
+          <MdTableChart className="text-xl" />
+          <span className="font-medium">Portal</span>
+        </Link>
+
+        <Link
+          to="/Dashboard/mess"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <PiCookingPotBold className="text-xl" />
+          <span className="font-medium">Mess</span>
+        </Link>
+
+        <Link
+          to="/Dashboard/invoices"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <LiaFileInvoiceSolid className="text-xl" />
+          <span className="font-medium">Invoices</span>
+        </Link>
+
+        <Link
+          to="/Dashboard/complaints"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <TfiWrite className="text-xl" />
+          <span className="font-medium">Complaints</span>
+        </Link>
+
+        <Link
+          to="/Dashboard/suggestions"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <GrNotes className="text-xl" />
+          <span className="font-medium">Suggestions</span>
+        </Link>
+
+        <Link
+          to="/Dashboard/settings"
+          className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-teal-600 transition-colors"
+        >
+          <GoGear className="text-xl" />
+          <span className="font-medium">Settings</span>
+        </Link>
+      </nav>
+
+      {/* Logout Button */}
+      <div className="p-4 border-t border-gray-200">
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-red-50 text-red-600 hover:text-red-700 transition-colors"
+        >
+          <ImExit className="text-xl" />
+          <span className="font-medium">Logout</span>
         </button>
       </div>
     </section>

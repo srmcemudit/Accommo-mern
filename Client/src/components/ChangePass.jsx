@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 function ChangePass() {
   const User = useSelector((state)=> (state.user.user));
   console.log(User);
@@ -9,12 +10,22 @@ function ChangePass() {
   const [Current, setCurrent] = useState("");
   const [New, setNew] = useState("");
   const [Confirm, setConfirm] = useState("");
-  const handleClick = async()=>{
+  const success = () => toast.success("Password Changed Success !")
+  const failed = () => toast.error("Failed To Change Password !")
+
+  const handleClick = async(e)=>{
+    e.preventDefault();
     if(New != Confirm){
       alert("passwords must be same in confirm field")
     }
-    const response = await axios.post("http://localhost:3001/user/changepass",{UserPass,Userid,Current,New});
-    console.log(response.data);
+    try {
+      const response = await axios.post("http://localhost:3001/user/changepass",{UserPass,Userid,Current,New});
+      console.log(response.data);
+      success()
+    } catch (error) {
+      console.log(error);
+      failed();
+    }
   }
 
   return (
@@ -55,6 +66,7 @@ function ChangePass() {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }
