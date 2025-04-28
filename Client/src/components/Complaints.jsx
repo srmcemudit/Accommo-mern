@@ -55,19 +55,19 @@ function Complaints() {
   const closeModal = () => setVisible(false);
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+        <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
           <FiAlertCircle className="mr-2 text-teal-600" />
           Complaint Management
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Complaint Registration Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex items-center mb-4">
               <FiEdit3 className="text-xl text-teal-600 mr-3" />
-              <h2 className="text-xl font-semibold text-gray-800">Register New Complaint</h2>
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Register New Complaint</h2>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,7 +79,7 @@ function Complaints() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                   placeholder="Brief complaint title"
                   required
                 />
@@ -93,7 +93,7 @@ function Complaints() {
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                   placeholder="Detailed description of your complaint"
                   required
                 />
@@ -101,7 +101,7 @@ function Complaints() {
 
               <button
                 type="submit"
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white dark:bg-teal-700 dark:hover:bg-teal-800 py-2 px-4 rounded-lg font-medium transition-colors"
               >
                 Submit Complaint
               </button>
@@ -109,15 +109,15 @@ function Complaints() {
           </div>
 
           {/* Complaints List Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center">
                 <FiAlertCircle className="text-xl text-teal-600 mr-3" />
-                <h2 className="text-xl font-semibold text-gray-800">Your Complaints</h2>
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Your Complaints</h2>
               </div>
               <button
                 onClick={GetComplaints}
-                className="text-teal-600 hover:text-teal-800 flex items-center text-sm"
+                className="text-teal-600 hover:text-teal-800 dark:bg-teal-700 dark:hover:bg-teal-800 flex items-center text-sm"
               >
                 <FiRefreshCw className="mr-1" /> Refresh
               </button>
@@ -152,15 +152,15 @@ function Complaints() {
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="bg-white p-6 rounded-lg">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Complaint Details</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg">
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Complaint Details</h2>
           <div className="bg-gray-50 p-4 rounded-md">
             <p className="text-gray-700 whitespace-pre-wrap">{modalData}</p>
           </div>
           <div className="flex justify-end mt-6">
             <button
               onClick={closeModal}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-100 px-4 py-2 rounded-md text-sm font-medium transition-colors"
             >
               Close
             </button>

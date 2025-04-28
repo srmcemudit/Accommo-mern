@@ -38,7 +38,7 @@ function ChangePass() {
           placeholder="Current Password"
           value={Current}
           onChange={(e) => setCurrent(e.target.value)}
-          className="w-full p-2 text-black rounded-md focus:outline-none focus:ring-blue-500 block "
+          className="border rounded p-2 w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
         />
         <input
           type="password"
@@ -46,7 +46,7 @@ function ChangePass() {
           placeholder="New Password"
           value={New}
           onChange={(e) => setNew(e.target.value)}
-          className="w-full p-2 text-black rounded-md focus:outline-none focus:ring-blue-500 block"
+          className="border rounded p-2 w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
         />
         <input
           type="password"
@@ -54,7 +54,7 @@ function ChangePass() {
           placeholder="Confirm Password"
           value={Confirm}
           onChange={(e) => setConfirm(e.target.value)}
-          className="w-full p-2 text-black rounded-md focus:outline-none focus:ring-blue-500 block"
+          className="border rounded p-2 w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
         />
         <div className="flex justify-center items-center">
           <button

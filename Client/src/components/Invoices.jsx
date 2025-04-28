@@ -31,10 +31,10 @@ function Invoices() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-6">
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-2 text-teal-700">
+        <h1 className="text-2xl font-bold mb-2 text-teal-700 dark:text-teal-400">
           Invoice Management
         </h1>
         <p className="text-gray-600 text-sm">
@@ -48,7 +48,11 @@ function Invoices() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveFilter('all')}
-            className={`px-3 py-1 rounded-full text-sm font-medium ${activeFilter === 'all' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-teal-100 hover:text-teal-800'}`}
+            className={`px-3 py-1 rounded-full text-sm font-medium ${
+              activeFilter === 'all' 
+                ? 'bg-teal-600 text-white dark:bg-teal-700' 
+                : 'bg-gray-100 text-gray-700 hover:bg-teal-100 hover:text-teal-800 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-teal-900/30 dark:hover:text-teal-400'
+            }`}
           >
             All
           </button>
@@ -78,7 +82,7 @@ function Invoices() {
             placeholder="Search invoices..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8 pr-4 py-1.5 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            className="pl-8 pr-4 py-1.5 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent p-2 w-full dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
           />
           <svg
             className="absolute left-2.5 top-2 h-4 w-4 text-gray-400"
@@ -97,9 +101,9 @@ function Invoices() {
       </div>
 
       {/* Invoice Cards Grid */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Table-like header for larger screens */}
-        <div className="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 text-sm font-medium text-gray-600 border-b border-gray-200">
+        <div className="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
           <div className="col-span-3">Invoice ID</div>
           <div className="col-span-2">Date</div>
           <div className="col-span-2">Client</div>
@@ -114,7 +118,7 @@ function Invoices() {
             filteredInvoices.map((invoice, i) => (
               <div
                 key={i}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
               >
                 <div className="md:col-span-3">
                   <div className="md:hidden text-xs text-gray-500 mb-1">Invoice ID</div>
@@ -174,7 +178,7 @@ function Invoices() {
           Showing {filteredInvoices.length} of {invoices.length} invoices
         </div>
         <div className="flex gap-2">
-          <button className="text-sm bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-1.5 px-3 rounded-md transition-colors">
+          <button className="text-sm bg-white dark:bg-gray-800 border border-gray-300 hover:bg-gray-50 text-gray-700 py-1.5 px-3 rounded-md transition-colors">
             Export CSV
           </button>
           <button className="text-sm bg-teal-600 hover:bg-teal-700 text-white py-1.5 px-3 rounded-md transition-colors flex items-center gap-1">
