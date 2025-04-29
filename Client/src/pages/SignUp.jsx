@@ -11,8 +11,8 @@ function SignUp() {
           Streamline your tasks with ease and efficiency.
         </p>
       </div>
-      <div className="w-full max-w-sm bg-white shadow-md rounded-lg p-6 space-y-4">
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Sign up</h2>
+      <div className="w-full max-w-sm bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 space-y-4">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">Sign up</h2>
         <form className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-600"> Username </label>

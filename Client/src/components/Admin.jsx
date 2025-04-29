@@ -7,7 +7,7 @@ function Admin() {
 
   return (
     <>
-    <div className="flex h-dvh bg-white">
+    <div className="flex h-dvh bg-white dark:bg-gray-800">
       <Admin_Section />
       <div className='w-full flex justify-center items-center '>
         <Outlet />

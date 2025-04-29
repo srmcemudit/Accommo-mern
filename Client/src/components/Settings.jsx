@@ -24,8 +24,8 @@ function Settings() {
 
   return (
     <div className="max-w-md mx-auto p-6">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 text-center">
           Account Settings
         </h3>
         <ul className="space-y-3">
@@ -33,7 +33,7 @@ function Settings() {
             <li
               key={index}
               onClick={() => handleNavigation(option.link)}
-              className="flex items-center p-4 rounded-lg border border-gray-200 hover:border-teal-300 hover:bg-teal-50 cursor-pointer transition-colors group"
+              className="flex items-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-teal-300 hover:bg-teal-50 cursor-pointer transition-colors group"
             >
               <div className="flex items-center justify-center h-10 w-10 rounded-full bg-teal-100 text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-colors mr-4">
                 {option.icon}

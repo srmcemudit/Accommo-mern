@@ -51,7 +51,7 @@ function Mess() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-6">
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2 text-teal-700">Canteen Management</h1>
@@ -60,7 +60,7 @@ function Mess() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
+      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
         <button
           className={`py-2 px-4 font-medium ${activeTab === 'menu' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-500'}`}
           onClick={() => setActiveTab('menu')}
@@ -86,13 +86,13 @@ function Mess() {
         <div>
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2 mb-6">
-            <button className="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-sm font-medium">
+            <button className="px-3 py-1 rounded-full bg-teal-100 dark:bg-gray-800 text-teal-800 text-sm font-medium">
               All
             </button>
             {categories.map(category => (
               <button 
                 key={category}
-                className="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-sm font-medium hover:bg-teal-100 hover:text-teal-800"
+                className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-100 text-sm font-medium hover:bg-teal-100 hover:text-teal-800"
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </button>
@@ -104,7 +104,7 @@ function Mess() {
             {menuItems.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100"
               >
                 <div className="p-5">
                   <div className="flex justify-between items-start mb-2">
@@ -133,7 +133,7 @@ function Mess() {
       {/* Orders Tab */}
       {activeTab === 'orders' && (
         <div>
-          <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6 border border-gray-100">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden mb-6 border border-gray-100">
             <div className="p-5">
               {orders.length === 0 ? (
                 <div className="text-center py-8">
@@ -186,7 +186,7 @@ function Mess() {
                     <div className="flex justify-between gap-4">
                       <button 
                         onClick={clearAllOrders}
-                        className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-md transition-colors flex items-center justify-center gap-2"
+                        className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 dark:text-gray-100 py-2 rounded-md transition-colors flex items-center justify-center gap-2"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -211,7 +211,7 @@ function Mess() {
       {/* Statistics Tab */}
       {activeTab === 'stats' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100">
             <h2 className="text-xl font-semibold text-teal-700 mb-4">Popular Items</h2>
             <div className="h-64">
               <Doughnut 
@@ -229,7 +229,7 @@ function Mess() {
             </div>
           </div>
           
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100">
             <h2 className="text-xl font-semibold text-teal-700 mb-4">Recent Orders</h2>
             {orders.length > 0 ? (
               <div className="space-y-4">

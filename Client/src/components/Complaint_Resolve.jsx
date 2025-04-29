@@ -34,15 +34,15 @@ function Complaint_Resolve() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 max-w-4xl mx-auto">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 flex items-center">
           <FiAlertTriangle className="mr-2 text-teal-600" />
           Student Complaints
         </h2>
         <button 
           onClick={fetchComplaints}
-          className="text-sm text-teal-600 hover:text-teal-800 flex items-center"
+          className="text-sm text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 flex items-center"
         >
           Refresh
         </button>
@@ -59,13 +59,13 @@ function Complaint_Resolve() {
               key={complaint._id} 
               className={`p-4 rounded-lg border ${
                 complaint.status === 'resolved' 
-                  ? 'border-green-200 bg-green-50' 
-                  : 'border-gray-200 hover:border-teal-300 bg-white'
-              } transition-colors shadow-xs`}
+                  ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20' 
+                  : 'border-gray-200 dark:border-gray-700 hover:border-teal-300 dark:hover:border-teal-500 bg-white dark:bg-gray-800'
+              }`}
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-medium text-gray-800 flex items-center">
+                  <h3 className="font-medium text-gray-800 dark:text-gray-100 flex items-center">
                     <FiMessageSquare className="mr-2 text-teal-600" />
                     {complaint.title}
                   </h3>
@@ -87,7 +87,7 @@ function Complaint_Resolve() {
                 )}
               </div>
               {complaint.status === 'resolved' && (
-                <div className="mt-2 pl-6 text-sm text-green-600 flex items-center">
+                <div className="mt-2 pl-6 text-sm text-green-600 dark:text-green-400 flex items-center">
                   ✓ Resolved
                 </div>
               )}

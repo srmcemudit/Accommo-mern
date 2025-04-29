@@ -8,14 +8,14 @@ function Dashboard() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <div className="flex flex-1">
         {/* Sidebar/Navigation */}
-        <div className="w-64 bg-white border-r border-gray-200 shadow-sm">
+        <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-sm">
           <Left_Section />
         </div>
         
         {/* Main Content Area */}
-        <main className="flex-1 p-6 bg-gray-50">
+        <main className="flex-1 p-6 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <Outlet />
             </div>
           </div>
@@ -23,7 +23,7 @@ function Dashboard() {
       </div>
       
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-4">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4">
         <Footer />
       </footer>
     </div>

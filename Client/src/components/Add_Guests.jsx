@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddGuest() {
+function AddGuest({ darkMode }) {
   const [guestDetails, setGuestDetails] = useState({
     name: "",
     email: "",
@@ -8,8 +8,6 @@ function AddGuest() {
     roomNo: "",
   });
   const [successMessage, setSuccessMessage] = useState("");
-  const availableRooms = [101, 102, 103, 104, 105, 106]; // Example available rooms
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setGuestDetails({ ...guestDetails, [name]: value });
@@ -17,80 +15,51 @@ function AddGuest() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Check if all fields are filled
     if (Object.values(guestDetails).some((val) => val.trim() === "")) {
       alert("Please fill in all fields.");
       return;
     }
-
-    // Assign a random available room
-    const randomRoom =
-      availableRooms[Math.floor(Math.random() * availableRooms.length)];
-
-    setSuccessMessage(
-      `Guest ${guestDetails.name} has been successfully added. Allotted Room: ${randomRoom}`
-    );
-
-    // Reset form fields
-    setGuestDetails({
-      name: "",
-      email: "",
-      contact: "",
-      roomNo: "",
-    });
+    setSuccessMessage(`Guest ${guestDetails.name} has been successfully added.`);
+    setGuestDetails({ name: "", email: "", contact: "", roomNo: "" });
   };
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold">Add New Guest</h3>
+      <h3 className={`text-xl font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
+        Add New Guest
+      </h3>
+      
       {successMessage && (
-        <div className="p-3 bg-green-600 rounded-md text-sm">{successMessage}</div>
+        <div className="p-3 bg-green-600 dark:bg-green-800 rounded-md text-sm text-white">
+          {successMessage}
+        </div>
       )}
+
       <form onSubmit={handleSubmit} className="space-y-3">
-        <input
-          type="text"
-          name="name"
-          placeholder="Guest Name"
-          value={guestDetails.name}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-800 text-white"
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={guestDetails.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-800 text-white"
-          required
-        />
-
-        <input
-          type="text"
-          name="contact"
-          placeholder="Contact Number"
-          value={guestDetails.contact}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-800 text-white"
-          required
-        />
-
-        <input
-          type="number"
-          name="roomNo"
-          placeholder="Room No"
-          value={guestDetails.roomNo}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md bg-gray-800 text-white"
-          required
-        />
+        {['name', 'email', 'contact', 'roomNo'].map((field) => (
+          <div key={field}>
+            <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
+            </label>
+            <input
+              type={field === 'email' ? 'email' : field === 'roomNo' ? 'number' : 'text'}
+              name={field}
+              placeholder={`Enter ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
+              value={guestDetails[field]}
+              onChange={handleChange}
+              className={`w-full p-2 rounded-lg border ${
+                darkMode 
+                  ? 'bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400' 
+                  : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+              } focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all`}
+              required
+            />
+          </div>
+        ))}
 
         <button
           type="submit"
-          className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 rounded-md"
+          className="w-full bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-800 text-white font-semibold py-2 rounded-lg transition-colors"
         >
           Add Guest
         </button>
@@ -98,5 +67,4 @@ function AddGuest() {
     </div>
   );
 }
-
 export default AddGuest;
