@@ -43,7 +43,7 @@ function LandingPage() {
     setError("");
 
     try {
-      const result = await axios.post("http://localhost:3001/user/login", {
+      const result = await axios.post("https://accommo-mern.onrender.com/user/login", {
         email,
         password,
       });

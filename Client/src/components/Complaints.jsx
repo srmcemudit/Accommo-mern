@@ -17,7 +17,7 @@ function Complaints() {
   const GetComplaints = useCallback(async () => {
     if (!user?._id) return;
     try {
-      const response = await axios.get(`http://localhost:3001/complaint/get/${user._id}`);
+      const response = await axios.get(`https://accommo-mern.onrender.com/complaint/get/${user._id}`);
       setComplaints(response.data);
     } catch (error) {
       console.error("Error fetching complaints:", error);
@@ -33,7 +33,7 @@ function Complaints() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3001/complaint/register",
+        "https://accommo-mern.onrender.com/complaint/register",
         { title, content, userId: user._id },
         { withCredentials: true }
       );

@@ -15,7 +15,7 @@ function Admin_Section() {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/logout",
+        "https://accommo-mern.onrender.com/logout",
         {},
         { withCredentials: true }
       );

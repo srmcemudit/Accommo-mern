@@ -19,7 +19,7 @@ function ChangePass() {
       alert("passwords must be same in confirm field")
     }
     try {
-      const response = await axios.post("http://localhost:3001/user/changepass",{UserPass,Userid,Current,New});
+      const response = await axios.post("https://accommo-mern.onrender.com/user/changepass",{UserPass,Userid,Current,New});
       console.log(response.data);
       success()
     } catch (error) {

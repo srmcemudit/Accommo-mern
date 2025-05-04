@@ -12,8 +12,8 @@ function Payments() {
       try {
         setIsLoading(true);
         // Replace with actual API calls
-        const pendingResponse = await axios.get('http://localhost:3001/payments/pending');
-        const receivedResponse = await axios.get('http://localhost:3001/payments/received');
+        const pendingResponse = await axios.get('https://accommo-mern.onrender.com/payments/pending');
+        const receivedResponse = await axios.get('https://accommo-mern.onrender.com/payments/received');
         
         setPendingPayments(pendingResponse.data);
         setReceivedPayments(receivedResponse.data);
@@ -29,7 +29,7 @@ function Payments() {
 
   const sendReminder = async (paymentId, name) => {
     try {
-      await axios.post(`http://localhost:3001/payments/reminder/${paymentId}`);
+      await axios.post(`https://accommo-mern.onrender.com/payments/reminder/${paymentId}`);
       alert(`Payment reminder sent to ${name}`);
     } catch (error) {
       console.error('Error sending reminder:', error);

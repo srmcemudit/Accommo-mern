@@ -11,7 +11,7 @@ function Notification() {
   const fetch = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/notification/allnotification"
+        "https://accommo-mern.onrender.com/notification/allnotification"
       );
       setNotification(response.data);
       console.log(response.data);

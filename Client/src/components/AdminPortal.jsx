@@ -23,7 +23,7 @@ function AdminPortal() {
   const fetchRooms = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3001/rooms/all");
+      const response = await axios.get("https://accommo-mern.onrender.com/rooms/all");
       const data = response.data;
 
       // Update all states at once
@@ -78,7 +78,7 @@ function AdminPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-2 py-4 md:p-6">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 md:mb-0">

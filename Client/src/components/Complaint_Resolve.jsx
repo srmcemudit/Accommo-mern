@@ -10,7 +10,7 @@ function Complaint_Resolve() {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "http://localhost:3001/complaint/getallcomplaints"
+        "https://accommo-mern.onrender.com/complaint/getallcomplaints"
       );
       setComplaints(response.data);
     } catch (error) {
@@ -26,7 +26,7 @@ function Complaint_Resolve() {
 
   const resolveComplaint = async (complaintId) => {
     try {
-      await axios.patch(`http://localhost:3001/complaint/resolve/${complaintId}`);
+      await axios.patch(`https://accommo-mern.onrender.com/complaint/resolve/${complaintId}`);
       fetchComplaints(); // Refresh the list after resolving
     } catch (error) {
       console.error("Error resolving complaint:", error);

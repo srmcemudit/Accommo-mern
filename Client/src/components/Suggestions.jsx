@@ -27,7 +27,7 @@ function Suggestions() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/suggestion/suggestionRegister',
+        'https://accommo-mern.onrender.com/suggestion/suggestionRegister',
         suggestion,
         { withCredentials: true }
       );

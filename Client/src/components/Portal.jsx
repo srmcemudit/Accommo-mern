@@ -11,8 +11,8 @@ function Portal() {
   
   const PaymentHandler = async () => {
     try {
-      const key = await axios.get("http://localhost:3001/razorpay/getkey");
-      const order = await axios.post("http://localhost:3001/razorpay/order");
+      const key = await axios.get("https://accommo-mern.onrender.com/razorpay/getkey");
+      const order = await axios.post("https://accommo-mern.onrender.com/razorpay/order");
       
       const options = {
         key: key.data.key,
@@ -25,7 +25,7 @@ function Portal() {
         handler: async function (response) {
           try {
             await axios.post(
-              "http://localhost:3001/razorpay/paymentverify",
+              "https://accommo-mern.onrender.com/razorpay/paymentverify",
               response
             );
             toast.success("Payment successful!");
@@ -59,7 +59,7 @@ function Portal() {
   const Roomsdata = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/rooms/userroom/${user._id}`
+        `https://accommo-mern.onrender.com/rooms/userroom/${user._id}`
       );
       dispatch(setUser({ user, room: response.data }));
     } catch (error) {
@@ -74,7 +74,7 @@ function Portal() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-2">
       <div className="max-w-4xl mx-auto">
         {/* Welcome Header */}
         <div className="mb-8 text-center">

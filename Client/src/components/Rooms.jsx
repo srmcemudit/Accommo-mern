@@ -34,21 +34,35 @@ function Rooms() {
 
   return (
     <div className="p-6 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-auto custom-scrollbar">
+      <div className="max-w-7xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-sm border
+       border-gray-200 dark:border-gray-700 overflow-auto custom-scrollbar">
         <div className="overflow-x-auto">
           <table className="divide-y divide-gray-200">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                >
                   Room No
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   Guest Name
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   Status
                 </th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase
+                  tracking-wider"
+                >
                   Actions
                 </th>
               </tr>
@@ -60,15 +74,23 @@ function Rooms() {
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200">
                 {data && Array.isArray(data) && data.length > 0 ? (
                   data.map((room) => (
-                    <tr key={room._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <tr
+                      key={room._id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                         {room.RoomNo}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500
+                       dark:text-gray-400">
                         {room.guest?.name || "N/A"}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getStatusColor(room.Status)}`}>
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getStatusColor(
+                            room.Status
+                          )}`}
+                        >
                           {room.Status}
                         </span>
                       </td>
@@ -84,7 +106,10 @@ function Rooms() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                    <td
+                      colSpan="4"
+                      className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400"
+                    >
                       No rooms found
                     </td>
                   </tr>
@@ -98,21 +123,29 @@ function Rooms() {
       <Modal
         visible={visible}
         width="500"
-        height="auto"
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <div className="mb-6">
-            {ModalData && <ManageRooms data={ModalData} />}
-          </div>
-          <div className="">
-            <button
-              onClick={closeModal}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-100 px-4 py-2 rounded-md text-sm font-medium transition-colors"
-            >
-              Close
-            </button>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-md">
+            {/* Modal Content */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+              {/* Modal Body */}
+              <div className="p-6 max-h-[80vh] overflow-y-auto">
+                {ModalData && <ManageRooms data={ModalData} />}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 flex justify-center border-t border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600
+                   dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </Modal>

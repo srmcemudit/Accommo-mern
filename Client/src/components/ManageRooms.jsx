@@ -1,17 +1,21 @@
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setRoom, setVacant } from "../Redux/Userslice";
+import axios from "axios";
 
 const ManageRooms = ({ data }) => {
   const [status, setStatus] = useState(data?.Status || "");
-  const guest = data?.guest || null
+  const guest = data?.guest || null;
   const dispatch = useDispatch();
 
   if (!data) {
-    return <div className="text-center py-10">Loading room details...</div>;
+    return (
+      <div className="flex items-center justify-center h-full py-10 text-gray-500">
+        Loading room details...
+      </div>
+    );
   }
-  
+
   const handleLeaveRoom = () => {
     if (window.confirm("Are you sure the guest is leaving?")) {
       setStatus("vacant");
@@ -22,86 +26,116 @@ const ManageRooms = ({ data }) => {
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
+
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.put(`http://localhost:3001/rooms/updateroom/${data._id}`,{"Status": status, "guest": guest});
-      if(response.status==200) {
-        const Response = await axios.get('http://localhost:3001/rooms/all')
-        const updatedRooms = Response.data;
-        const vacantRooms = updatedRooms.filter(room => room.Status == "vacant");
+      const response = await axios.put(
+        `https://accommo-mern.onrender.com/rooms/updateroom/${data._id}`,
+        {
+          Status: status,
+          guest: guest,
+        }
+      );
+
+      if (response.status === 200) {
+        const res = await axios.get(
+          "https://accommo-mern.onrender.com/rooms/all"
+        );
+        const updatedRooms = res.data;
+        const vacantRooms = updatedRooms.filter(
+          (room) => room.Status === "vacant"
+        );
         dispatch(setVacant(vacantRooms));
         dispatch(setRoom(updatedRooms));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
-    <div className="max-w-2xl w-full bg-zinc-900 rounded-2xl shadow-md space-y-4">
-      <h2 className="text-2xl font-semibold text-center">Manage Room</h2>
-
-      <div className="space-y-2 bg-zinc-800 rounded-lg">
-        <p>
-          <span className="font-semibold">Room No:</span> {data.RoomNo}
-        </p>
-        <p>
-          <span className="font-semibold">Status:</span> {data.Status}
-        </p>
-        <p>
-          <span className="font-semibold">Type:</span> {data.type}
-        </p>
-        <p>
-          <span className="font-semibold">Created At:</span>{" "}
-          {new Date(data.createdAt).toLocaleString()}
-        </p>
-        <p>
-          <span className="font-semibold">Updated At:</span>{" "}
-          {new Date(data.updatedAt).toLocaleString()}
-        </p>
+    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800">
+      <div className="bg-teal-600 px-6 py-4">
+        <h2 className="text-xl font-semibold text-white">Manage Room</h2>
       </div>
 
-      {guest ? (
-        <div className="p-4 bg-blue-500 rounded-lg space-y-2">
-          <h3 className="text-lg font-semibold text-white">Guest Details</h3>
-          <p>
-            <span className="font-semibold">Name:</span> {guest.name}
-          </p>
-          <p>
-            <span className="font-semibold">Email:</span> {guest.email}
-          </p>
-          <button
-            onClick={handleLeaveRoom}
-            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition"
-          >
-            Guest Leaving
-          </button>
+      <div className="p-6 space-y-6">
+        {/* Room Info */}
+        <div className="space-y-3 p-4 rounded-lg bg-gray-50 border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+          <h3 className="font-medium text-teal-600 dark:text-teal-400">Room Information</h3>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Room No:</p>
+              <p className="font-medium">{data.RoomNo}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Status:</p>
+              <p className="font-medium capitalize">{data.Status}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Type:</p>
+              <p className="font-medium">{data.type}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Created:</p>
+              <p className="font-medium text-sm">{new Date(data.createdAt).toLocaleString()}</p>
+            </div>
+          </div>
         </div>
-      ) : (
-        <p className="text-gray-400 p-4 italic text-center">No guest assigned to this room.</p>
-      )}
 
-      <div className="bg-zinc-800 rounded-lg space-y-2">
-        <label className="block font-semibold">Change Room Status:</label>
-        <select
-          value={status}
-          onChange={handleStatusChange}
-          className="w-full p-2 rounded-lg bg-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        {/* Guest Info */}
+        {guest ? (
+          <div className="p-4 rounded-lg bg-teal-50 border border-teal-100 dark:bg-teal-900/30 dark:border-teal-800">
+            <h3 className="font-medium text-teal-600 dark:text-teal-400 mb-2">Guest Details</h3>
+            <div className="space-y-2">
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Name:</p>
+                <p className="font-medium">{guest.name}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Email:</p>
+                <p className="font-medium">{guest.email}</p>
+              </div>
+            </div>
+            <button
+              onClick={handleLeaveRoom}
+              className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md transition-colors"
+            >
+              Guest Leaving
+            </button>
+          </div>
+        ) : (
+          <div className="text-center py-4 text-gray-500 dark:text-gray-400 italic">
+            No guest assigned to this room
+          </div>
+        )}
+
+        {/* Status Change */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Change Room Status
+          </label>
+          <select
+            value={status}
+            onChange={handleStatusChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          >
+            <option value="occupied">Occupied</option>
+            <option value="vacant">Vacant</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
+        </div>
+
+        {/* Save Button */}
+        <button
+          onClick={handleSaveChanges}
+          className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
         >
-          <option value="occupied">Occupied</option>
-          <option value="vacant">Vacant</option>
-          <option value="maintenance">Maintenance</option>
-        </select>
+          Save Changes
+        </button>
       </div>
-
-      <button
-        onClick={handleSaveChanges}
-        className="w-full px-4 py-2 rounded-xl text-lg font-medium transition bg-green-500 hover:bg-green-600 text-white disabled:bg-green-300"
-      >
-        Save Changes
-      </button>
-
     </div>
   );
 };
+
 export default ManageRooms;

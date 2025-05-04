@@ -6,7 +6,7 @@ function Send_Alert({ darkMode }) {
   const handleClick = async () => {
     const data = { Title, Description }
     try {
-      const response = await axios.post('http://localhost:3001/notification/register', data, { withCredentials: true });
+      const response = await axios.post('https://accommo-mern.onrender.com/notification/register', data, { withCredentials: true });
       console.log(response.data);
     } catch (error) {
       console.log(error)
