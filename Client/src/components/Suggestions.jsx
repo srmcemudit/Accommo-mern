@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const SERVER_URL = import.meta.env.VITE_SERVER;
-
+axios.defaults.withCredentials = true;
 function Suggestions() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

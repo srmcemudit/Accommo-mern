@@ -13,11 +13,11 @@ module.exports.getSuggestion = async (req,res) =>{
 
 module.exports.RegisterSuggestion = async (req, res) => {
   try {
-    const { Title, Description, UserId } = req.body;
+    const { title, description, userId } = req.body;
     const suggestion = await Suggestion.create({
-      Title: Title,
-      Description: Description,
-      UserId: UserId,
+      Title: title,
+      Description: description,
+      UserId: userId,
     });
     res.status(200).json(suggestion);
   } catch (error) {
