@@ -5,8 +5,7 @@ function Invoices() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const HandleClick = (invoiceId) => {
-    console.log(`Invoice ${invoiceId} clicked!`);    
+  const HandleClick = () => {    
     const newTab = window.open("/pdf", "_blank");
     if (newTab) {
       newTab.focus();

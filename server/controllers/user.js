@@ -17,8 +17,6 @@ module.exports.getId = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
-    console.log(user);
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -39,9 +37,6 @@ module.exports.cookies = async (req, res) => {
 
 module.exports.Login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
-
-  console.log("request recieved at /user/login");
   try {
     //compare password with db hashed password
     const user = await User.findOne({ email: email });
@@ -60,7 +55,6 @@ module.exports.Login = async (req, res) => {
           maxAge: 7 * 24 * 60 * 60 * 1000,
           secure: false,
         });
-        console.log(token);
         return res.status(200).json({ message: "Login successful", user });
       } else {
         return res.status(401).json({ message: "Invalid credentials" });
@@ -75,10 +69,6 @@ module.exports.Login = async (req, res) => {
 module.exports.Register = async (req, res) => {
   try {
     const { name, email, role, roomtype } = req.body;
-    console.log("Request received at /user/register");
-    console.log(roomtype);
-    
-
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -90,8 +80,6 @@ module.exports.Register = async (req, res) => {
     const hashedPassword = await bcrypt.hash("123", salt);
 
     const user = new User({ name, email, password: hashedPassword, role });
-    console.log("New user (in memory):", user);
-
     if (role === "admin") {
       user.RoomNo = undefined;
     }
@@ -103,7 +91,7 @@ module.exports.Register = async (req, res) => {
         await user.save();
         user.RoomNo = availableRoom.RoomNo;
       } else {
-        console.log("⚠ No vacant room found for client.");
+        return res.status(401).json({"message": "no rooms vacant"})
       }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -134,10 +122,8 @@ module.exports.ChangePass = async (req, res) => {
       user.password = hashedPassword;
       await user.save();
       res.status(200).json({ message: "Password updated successfully" });
-      console.log("Password updated successfully");
     } else {
       res.status(501).json({ message: "passwords incorrect" });
-      console.log("passwords incorrect");
     }
   } catch (error) {
     console.log(error);

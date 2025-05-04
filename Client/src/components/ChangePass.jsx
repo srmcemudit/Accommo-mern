@@ -5,7 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 const SERVER_URL = import.meta.env.VITE_SERVER;
 function ChangePass() {
   const User = useSelector((state)=> (state.user.user));
-  console.log(User);
   const Userid = User._id;
   const UserPass = User.password;
   const [Current, setCurrent] = useState("");
@@ -21,8 +20,11 @@ function ChangePass() {
     }
     try {
       const response = await axios.post(`${SERVER_URL}/user/changepass`,{UserPass,Userid,Current,New});
-      console.log(response.data);
-      success()
+      if(response.status==200){
+        success()
+      }else{
+        failed()
+      }
     } catch (error) {
       console.log(error);
       failed();

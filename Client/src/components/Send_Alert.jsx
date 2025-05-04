@@ -1,14 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
+import { toast,ToastContainer } from "react-toastify";
 const SERVER_URL = import.meta.env.VITE_SERVER;
 function Send_Alert({ darkMode }) {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
+    const success = () => toast.success("Notification Sent ....");
+    const failed = () => toast.error("Error! Please try again.");
+  
   const handleClick = async () => {
     const data = { Title, Description }
     try {
       const response = await axios.post(`${SERVER_URL}/notification/register`, data, { withCredentials: true });
-      console.log(response.data);
+      if(response.status==200){
+          success()
+      }else{
+        failed()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -62,6 +70,7 @@ function Send_Alert({ darkMode }) {
           Submit
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

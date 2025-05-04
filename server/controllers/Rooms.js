@@ -39,9 +39,6 @@ module.exports.updateroom = async(req,res) =>{
         if(guest){
             user = await User.findOne({ _id: guest._id });
         }
-        console.log(guest);
-        console.log(Room);
-        console.log(Status);
         if(Status === "maintenance" && guest ){
             const newRoom = await Rooms.findOne({ Status: "vacant", type: Room.type});
             if (!newRoom) {
@@ -51,7 +48,6 @@ module.exports.updateroom = async(req,res) =>{
             Room.guest = null;
             newRoom.guest = guest;
             newRoom.Status = "occupied";
-            console.log("user",user)
             user.RoomNo = newRoom.RoomNo;
             await Room.save()
             await newRoom.save()

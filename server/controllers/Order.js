@@ -12,7 +12,6 @@ module.exports.Order = async (req, res) => {
         key2: "value2",
       },
     });
-    console.log(order);
     res.status(200).json(order);
   } catch (error) {
     console.log("error in order", error);
@@ -21,7 +20,6 @@ module.exports.Order = async (req, res) => {
 };
 
 module.exports.payment = (req, res) => {
-  console.log("body", req.body);
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
   const generated_signature = crypto
@@ -30,11 +28,9 @@ module.exports.payment = (req, res) => {
     .digest("hex");
 
   if (generated_signature === razorpay_signature) {
-    console.log("Payment verified successfully!");
 
     return res.status(200).json({"success":"true"});
   } else {
-    console.log("Payment verification failed!");
     return res.status(400).json({ success: false, message: "Invalid signature" });
   }
 };

@@ -2,7 +2,6 @@ const Complaint = require("../models/Complaints");
 
 module.exports.getcomplaints = async(req,res) => {
   try {
-    console.log("req recived at complaints");
     const { userId } = req.params;
     const complaints = await Complaint.find({ userId });  // Find posts by userId
     if (!complaints.length) {

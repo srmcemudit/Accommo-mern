@@ -25,7 +25,6 @@ function AddGuest({ darkMode }) {
   
     try {
       const response = await axios.post(`${SERVER_URL}/user/register`, guestDetails);
-      console.log(response.data);
       setSuccessMessage(`Guest ${guestDetails.name} has been successfully alloted room no ${response.data.user.RoomNo}.`);
       
       setGuestDetails({

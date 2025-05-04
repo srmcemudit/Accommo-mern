@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 function Profile() {
   const User = useSelector((state)=> (state.user.user));
-  console.log(User);
   
   return (
     <div className='text-white px-4 py-2 text-lg flex flex-col justify-center bg-slate-800 rounded-lg shadow-lg '>

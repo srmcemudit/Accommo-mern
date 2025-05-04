@@ -3,8 +3,6 @@ const Notification = require("../models/Notification");
 module.exports.Register_Notification = async(req,res) =>{
     try {
         const {Title, Description} = req.body;
-        console.log("req recived at notification");
-        console.log(Title,Description);
         const notification = await Notification.create({
             Title: Title,
             Description: Description

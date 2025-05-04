@@ -32,10 +32,11 @@ function Suggestions() {
         suggestion,
         { withCredentials: true }
       );
-      console.log(response.data);
-      success();
-      setTitle('');
-      setDescription('');
+      if(response.status==200){
+        success();
+        setTitle('');
+        setDescription('');
+      }
     } catch (error) {
       console.error(error);
       failed(error.response?.data?.message || "An error occurred");
