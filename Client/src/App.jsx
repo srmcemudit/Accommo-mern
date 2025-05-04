@@ -3,7 +3,7 @@ import About from "./components/About";
 import Landing_Page from "./pages/Landing_Page";
 import Contact from "./components/Contact";
 import Portal from "./components/Portal";
-import Mess from "./components/mess";
+import Mess from "./components/Mess";
 import Suggestions from "./components/Suggestions";
 import Complaints from "./components/Complaints";
 import Settings from "./components/Settings";
