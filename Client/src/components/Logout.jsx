@@ -22,7 +22,7 @@ function Logout() {
         </div>
 
         {/* Success message */}
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 dark:text-white mb-2">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
           Logout Successful
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mb-6">

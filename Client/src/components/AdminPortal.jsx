@@ -204,9 +204,9 @@ function AdminPortal() {
         effect="fadeInUp"
         onClickAway={closeModal}
       >
-        <div className="flex justify-center items-center min-h-[80vh]">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col justify-center items-center">
-            <div className="mb-8">
+        <div className="fixed flex inset-0 justify-center items-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-full max-w-2xl flex flex-col justify-center items-center">
+            <div className="w-full px-6 py-5 mb-8">
               {ModalData && React.cloneElement(ModalData, { darkMode: true })}
             </div>
             <div className="flex justify-center">

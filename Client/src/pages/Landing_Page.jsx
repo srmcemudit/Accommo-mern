@@ -52,7 +52,7 @@ function LandingPage() {
         setTimeout(() => {
           dispatch(setUser({ user: result.data.user }));
           navigate("/dashboard");
-        }, 1500);
+        }, 1000);
       } else {
         failed();
       }
@@ -68,7 +68,7 @@ function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center p-4">
       {/* Modern card design */}
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100">
         {/* Header with accent bar */}
