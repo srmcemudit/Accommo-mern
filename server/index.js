@@ -19,7 +19,11 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://accommo-mern.vercel.app",
+      "https://accommo-mern-srmcemudits-projects.vercel.app",
+    ],
     credentials: true,
   })
 );
@@ -32,10 +36,10 @@ mongoose
 app.use("/user", userRoute);
 app.use("/suggestion", Validate, suggestionRoute);
 app.use("/complaint", Validate, complaintRoute);
-app.use("/notification",NotificationRoute);
-app.use("/rooms",RoomsRoute);
+app.use("/notification", NotificationRoute);
+app.use("/rooms", RoomsRoute);
 app.use("/logout", logout);
-app.use('/razorpay',OrderRoute);
+app.use("/razorpay", OrderRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
