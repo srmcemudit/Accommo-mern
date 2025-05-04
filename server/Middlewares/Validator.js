@@ -13,6 +13,6 @@ module.exports.Validate = (req,res,next) =>{
             }
         });
     } catch (error) {
-        res.status(401).json({ staus: false, message: error.message });
+        res.status(401).json({ status: false, message: error.message });
     }
 }
