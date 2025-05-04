@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setRoom, setVacant } from "../Redux/Userslice";
 import axios from "axios";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 const ManageRooms = ({ data }) => {
   const [status, setStatus] = useState(data?.Status || "");
@@ -30,7 +31,7 @@ const ManageRooms = ({ data }) => {
   const handleSaveChanges = async () => {
     try {
       const response = await axios.put(
-        `https://accommo-mern.onrender.com/rooms/updateroom/${data._id}`,
+        `${SERVER_URL}/rooms/updateroom/${data._id}`,
         {
           Status: status,
           guest: guest,
@@ -39,7 +40,7 @@ const ManageRooms = ({ data }) => {
 
       if (response.status === 200) {
         const res = await axios.get(
-          "https://accommo-mern.onrender.com/rooms/all"
+          "${SERVER_URL}/rooms/all"
         );
         const updatedRooms = res.data;
         const vacantRooms = updatedRooms.filter(

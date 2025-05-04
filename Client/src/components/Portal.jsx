@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { setUser } from "../Redux/Userslice";
 import { toast, ToastContainer } from "react-toastify";
 import { FiHome, FiDollarSign, FiUser } from "react-icons/fi";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Portal() {
   const user = useSelector((state) => state.user.user);
@@ -11,8 +12,8 @@ function Portal() {
   
   const PaymentHandler = async () => {
     try {
-      const key = await axios.get("https://accommo-mern.onrender.com/razorpay/getkey");
-      const order = await axios.post("https://accommo-mern.onrender.com/razorpay/order");
+      const key = await axios.get(`${SERVER_URL}/razorpay/getkey`);
+      const order = await axios.post(`${SERVER_URL}/razorpay/order`);
       
       const options = {
         key: key.data.key,
@@ -25,7 +26,7 @@ function Portal() {
         handler: async function (response) {
           try {
             await axios.post(
-              "https://accommo-mern.onrender.com/razorpay/paymentverify",
+              `${SERVER_URL}/razorpay/paymentverify`,
               response
             );
             toast.success("Payment successful!");
@@ -59,7 +60,7 @@ function Portal() {
   const Roomsdata = async () => {
     try {
       const response = await axios.get(
-        `https://accommo-mern.onrender.com/rooms/userroom/${user._id}`
+        `${SERVER_URL}/rooms/userroom/${user._id}`
       );
       dispatch(setUser({ user, room: response.data }));
     } catch (error) {

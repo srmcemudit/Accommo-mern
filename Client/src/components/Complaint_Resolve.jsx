@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FiAlertTriangle, FiUser, FiMessageSquare } from "react-icons/fi";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Complaint_Resolve() {
   const [complaints, setComplaints] = useState([]);
@@ -10,7 +11,7 @@ function Complaint_Resolve() {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "https://accommo-mern.onrender.com/complaint/getallcomplaints"
+        `${SERVER_URL}/complaint/getallcomplaints`
       );
       setComplaints(response.data);
     } catch (error) {
@@ -26,7 +27,7 @@ function Complaint_Resolve() {
 
   const resolveComplaint = async (complaintId) => {
     try {
-      await axios.patch(`https://accommo-mern.onrender.com/complaint/resolve/${complaintId}`);
+      await axios.patch(`${SERVER_URL}/complaint/resolve/${complaintId}`);
       fetchComplaints(); // Refresh the list after resolving
     } catch (error) {
       console.error("Error resolving complaint:", error);

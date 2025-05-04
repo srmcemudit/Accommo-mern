@@ -7,6 +7,7 @@ import { MdOutlineSpaceDashboard, MdTableChart, MdOutlineBedroomParent, MdPaymen
 import { TfiWrite } from "react-icons/tfi";
 import { GoGear } from "react-icons/go";
 import { ImExit } from "react-icons/im";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Admin_Section() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Admin_Section() {
   const logout = async () => {
     try {
       await axios.post(
-        "https://accommo-mern.onrender.com/logout",
+        `${SERVER_URL}/logout`,
         {},
         { withCredentials: true }
       );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-
+const SERVER_URL = import.meta.env.VITE_SERVER;
 function AddGuest({ darkMode }) {
   const [guestDetails, setGuestDetails] = useState({
     name: "",
@@ -24,7 +24,7 @@ function AddGuest({ darkMode }) {
     }
   
     try {
-      const response = await axios.post('https://accommo-mern.onrender.com/user/register', guestDetails);
+      const response = await axios.post(`${SERVER_URL}/user/register`, guestDetails);
       console.log(response.data);
       setSuccessMessage(`Guest ${guestDetails.name} has been successfully alloted room no ${response.data.user.RoomNo}.`);
       

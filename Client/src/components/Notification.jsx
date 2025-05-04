@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-awesome-modal";
 import { GoBell } from "react-icons/go";
 import View_Notification from "./View_Notification";
-
+const SERVER_URL = import.meta.env.VITE_SERVER;
 function Notification() {
   const [Notification, setNotification] = useState([]);
   const [ModalData, setModalData] = useState("");
@@ -11,7 +11,7 @@ function Notification() {
   const fetch = async () => {
     try {
       const response = await axios.get(
-        "https://accommo-mern.onrender.com/notification/allnotification"
+        `${SERVER_URL}/notification/allnotification`
       );
       setNotification(response.data);
       console.log(response.data);

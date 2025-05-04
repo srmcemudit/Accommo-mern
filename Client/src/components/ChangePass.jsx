@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 function ChangePass() {
   const User = useSelector((state)=> (state.user.user));
   console.log(User);
@@ -19,7 +20,7 @@ function ChangePass() {
       alert("passwords must be same in confirm field")
     }
     try {
-      const response = await axios.post("https://accommo-mern.onrender.com/user/changepass",{UserPass,Userid,Current,New});
+      const response = await axios.post(`${SERVER_URL}/user/changepass`,{UserPass,Userid,Current,New});
       console.log(response.data);
       success()
     } catch (error) {

@@ -7,6 +7,7 @@ import Send_Alert from "./Send_Alert";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setRoom } from "../Redux/Userslice";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,7 +24,7 @@ function AdminPortal() {
   const fetchRooms = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://accommo-mern.onrender.com/rooms/all");
+      const response = await axios.get(`${SERVER_URL}/rooms/all`);
       const data = response.data;
 
       // Update all states at once

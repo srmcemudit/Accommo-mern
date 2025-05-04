@@ -5,7 +5,7 @@ import Register_Complaints from "./Register_Complaints";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { FiAlertCircle, FiRefreshCw, FiEdit3 } from "react-icons/fi";
-
+const SERVER_URL = import.meta.env.VITE_SERVER;
 function Complaints() {
   const user = useSelector((state) => state.user.user);
   const [visible, setVisible] = useState(false);
@@ -17,7 +17,7 @@ function Complaints() {
   const GetComplaints = useCallback(async () => {
     if (!user?._id) return;
     try {
-      const response = await axios.get(`https://accommo-mern.onrender.com/complaint/get/${user._id}`);
+      const response = await axios.get(`${SERVER_URL}/complaint/get/${user._id}`);
       setComplaints(response.data);
     } catch (error) {
       console.error("Error fetching complaints:", error);
@@ -33,7 +33,7 @@ function Complaints() {
     e.preventDefault();
     try {
       await axios.post(
-        "https://accommo-mern.onrender.com/complaint/register",
+        `${SERVER_URL}/complaint/register`,
         { title, content, userId: user._id },
         { withCredentials: true }
       );

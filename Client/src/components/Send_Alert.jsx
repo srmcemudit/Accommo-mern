@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 function Send_Alert({ darkMode }) {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const handleClick = async () => {
     const data = { Title, Description }
     try {
-      const response = await axios.post('https://accommo-mern.onrender.com/notification/register', data, { withCredentials: true });
+      const response = await axios.post(`${SERVER_URL}/notification/register`, data, { withCredentials: true });
       console.log(response.data);
     } catch (error) {
       console.log(error)

@@ -10,6 +10,7 @@ import { TfiWrite } from "react-icons/tfi";
 import { GrNotes } from "react-icons/gr";
 import { GoGear } from "react-icons/go";
 import { ImExit } from "react-icons/im";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Left_Section() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Left_Section() {
   const logout = async () => {
     try {
       await axios.post(
-        "https://accommo-mern.onrender.com/logout",
+        `${SERVER_URL}/logout`,
         {},
         { withCredentials: true }
       );

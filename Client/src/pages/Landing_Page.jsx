@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../Redux/Userslice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 import {
   FiEye,
   FiEyeOff,
@@ -43,7 +44,7 @@ function LandingPage() {
     setError("");
 
     try {
-      const result = await axios.post("https://accommo-mern.onrender.com/user/login", {
+      const result = await axios.post(`${SERVER_URL}/user/login`, {
         email,
         password,
       });

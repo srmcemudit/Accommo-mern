@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Suggestions() {
   const [title, setTitle] = useState('');
@@ -27,7 +28,7 @@ function Suggestions() {
 
     try {
       const response = await axios.post(
-        'https://accommo-mern.onrender.com/suggestion/suggestionRegister',
+        `${SERVER_URL}/suggestion/suggestionRegister`,
         suggestion,
         { withCredentials: true }
       );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FiAlertCircle, FiCheckCircle, FiSend, FiDollarSign } from 'react-icons/fi';
+const SERVER_URL = import.meta.env.VITE_SERVER;
 
 function Payments() {
   const [pendingPayments, setPendingPayments] = useState([]);
@@ -12,8 +13,8 @@ function Payments() {
       try {
         setIsLoading(true);
         // Replace with actual API calls
-        const pendingResponse = await axios.get('https://accommo-mern.onrender.com/payments/pending');
-        const receivedResponse = await axios.get('https://accommo-mern.onrender.com/payments/received');
+        const pendingResponse = await axios.get(`${SERVER_URL}/payments/pending`);
+        const receivedResponse = await axios.get(`${SERVER_URL}/payments/received`);
         
         setPendingPayments(pendingResponse.data);
         setReceivedPayments(receivedResponse.data);
@@ -29,7 +30,7 @@ function Payments() {
 
   const sendReminder = async (paymentId, name) => {
     try {
-      await axios.post(`https://accommo-mern.onrender.com/payments/reminder/${paymentId}`);
+      await axios.post(`${SERVER_URL}/payments/reminder/${paymentId}`);
       alert(`Payment reminder sent to ${name}`);
     } catch (error) {
       console.error('Error sending reminder:', error);
