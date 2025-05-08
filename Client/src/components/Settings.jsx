@@ -23,7 +23,7 @@ function Settings() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div className="max-w-md flex md:block justify-center items-center h-[calc(100vh-9rem)] md:h-auto mx-auto p-6">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 text-center">
           Account Settings

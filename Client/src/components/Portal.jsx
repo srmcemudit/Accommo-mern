@@ -75,14 +75,16 @@ function Portal() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-2">
-      <div className="max-w-4xl mx-auto">
+    <div className="md:min-h-screen h-screen bg-gray-50 dark:bg-gray-900 px-4 py-2">
+      <div className="max-w-4xl space-y-1 mx-auto">
         {/* Welcome Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-            <FiUser className="mr-3 text-teal-600" />
-            Welcome, {user?.name || "Guest"}
-          </h1>
+          <div className="text-3xl flex md:block font-bold text-gray-800 dark:text-gray-100">
+            <FiUser className="md:mr-3 text-teal-600" />
+            <h1 className="text-2xl px-2 md:px-0 md:text-3xl">
+              Welcome, {user?.name || "Guest"}
+            </h1>
+          </div>
           <p className="text-gray-500 dark:text-gray-400 mt-2">Your accommodation dashboard</p>
         </div>
 
@@ -93,7 +95,7 @@ function Portal() {
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Payment Options</h2>
           </div>
           
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
             <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-teal-300 dark:hover:border-teal-500 transition-colors text-center">
               <p className="font-medium text-gray-700 dark:text-gray-300">Room Rent</p>
               <p className="text-teal-600 font-semibold dark:text-teal-400">₹5,000</p>
