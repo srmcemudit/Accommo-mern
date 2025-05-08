@@ -80,7 +80,7 @@ function LandingPage() {
           {/* Logo/Title area */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-              Hostel Management
+              PG Management
             </h1>
             <p className="text-gray-500">Sign in to access your dashboard</p>
           </div>
