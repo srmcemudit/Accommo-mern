@@ -30,7 +30,9 @@ function Portal() {
               response
             );
             toast.success("Payment successful!");
-            window.location.href = "/dashboard";
+            setTimeout(() => {
+              window.location.href = "/dashboard";
+            }, 2000);
           } catch (error) {
             toast.error("Payment verification failed");
             console.error(error);
