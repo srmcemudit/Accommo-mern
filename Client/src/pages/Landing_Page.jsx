@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Redux/Userslice";
 import { ToastContainer, toast } from "react-toastify";
+import Logo from "../assets/srmcem_logo.png"
 import "react-toastify/dist/ReactToastify.css";
 const SERVER_URL = import.meta.env.VITE_SERVER;
 import {
@@ -79,6 +80,9 @@ function LandingPage() {
         <div className="md:p-8 p-4">
           {/* Logo/Title area */}
           <div className="text-center mb-8">
+            <div className="mb-4 flex justify-center">
+              <img src={Logo} alt="college logo" className="w-auto h-20 object-contain"/>
+            </div>
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
               PG Management
             </h1>
